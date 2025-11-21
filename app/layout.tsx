@@ -27,9 +27,9 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/opengraphlogo.png",   // <-- your OG logo file in /public
-        width: 1200,           // recommended OG width
-        height: 630,           // recommended OG height
+        url: "/opengraph2.png",   // <-- your OG logo file in /public
+        width: 1024,           // recommended OG width
+        height: 1024,           // recommended OG height
         alt: "Wemasol Logo",   // accessibility
       },
     ],
