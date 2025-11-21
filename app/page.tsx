@@ -1,9 +1,9 @@
-import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import Link from "next/link"
-import { Sun, Leaf, Zap, Shield, TrendingUp, Users } from "lucide-react"
+import { Navigation } from "@/components/navigation";
+import { Footer } from "@/components/footer";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import Link from "next/link";
+import { Sun, Leaf, Zap, Shield, TrendingUp, Users } from "lucide-react";
 
 export default function HomePage() {
   return (
@@ -44,9 +44,11 @@ export default function HomePage() {
 
         {/* Features Section */}
         <section className="py-16 md:py-24 relative">
-          <div className="absolute top-1/2 left-1/2 w-[800px] h-[800px] -translate-x-1/2 -translate-y-1/2 opacity-30 pointer-events-none">
+          {/* Adjusted absolute element for responsiveness */}
+          <div className="absolute top-1/2 left-1/2 w-[800px] max-w-full h-[800px] max-h-full -translate-x-1/2 -translate-y-1/2 opacity-30 pointer-events-none">
             <div className="w-full h-full gradient-glow"></div>
           </div>
+
           <div className="container relative mx-auto px-4">
             <div className="text-center mb-12 animate-in fade-in slide-in-from-bottom-3 duration-500">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Wemasol?</h2>
@@ -55,7 +57,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               <Card
                 className="p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 animate-in fade-in slide-in-from-bottom-4 duration-700"
                 style={{ animationDelay: "100ms" }}
@@ -143,5 +145,5 @@ export default function HomePage() {
       </main>
       <Footer />
     </>
-  )
+  );
 }
