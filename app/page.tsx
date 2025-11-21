@@ -7,7 +7,7 @@ import { Sun, Leaf, Zap, Shield, TrendingUp, Users } from "lucide-react";
 
 export default function HomePage() {
   return (
-    <div className="overflow-x-hidden">
+    <div className="overflow-x-hidden w-screen">
       <Navigation />
       <main className="subtle-gradient-bg">
         {/* Hero Section */}
@@ -35,7 +35,7 @@ export default function HomePage() {
 
         {/* Features Section */}
         <section className="py-16 md:py-24 relative">
-          <div className="absolute top-1/2 left-1/2 w-[90vw] max-w-[800px] h-[90vw] max-h-[800px] -translate-x-1/2 -translate-y-1/2 opacity-30 pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 w-full max-w-screen h-full max-h-screen -translate-x-1/2 -translate-y-1/2 opacity-30 pointer-events-none">
             <div className="w-full h-full gradient-glow"></div>
           </div>
           <div className="container relative mx-auto px-4">
