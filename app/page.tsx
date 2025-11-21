@@ -9,7 +9,7 @@ export default function HomePage() {
   return (
     <>
       <Navigation />
-      <main className="subtle-gradient-bg">
+      <main className="subtle-gradient-bg overflow-x-hidden">
         {/* Hero Section */}
         <section className="relative overflow-hidden">
           <div className="container relative mx-auto px-4 py-24 md:py-32">

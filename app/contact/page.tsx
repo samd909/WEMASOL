@@ -15,7 +15,7 @@ export default function ContactPage() {
   return (
     <>
       <Navigation />
-      <main className="subtle-gradient-bg overflow-x-hidden">
+      <main className="subtle-gradient-bg">
         <section className="py-16 md:py-24">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center mb-12 animate-in fade-in slide-in-from-bottom-3 duration-700">
