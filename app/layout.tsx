@@ -28,8 +28,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/opengraphlogo.png",   // <-- your OG logo file in /public
-        width: 512,           // recommended OG width
-        height: 512,           // recommended OG height
+        width: 1200,           // recommended OG width
+        height: 630,           // recommended OG height
         alt: "Wemasol Logo",   // accessibility
       },
     ],
