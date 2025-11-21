@@ -35,7 +35,7 @@ export default function HomePage() {
 
         {/* Features Section */}
         <section className="py-16 md:py-24 relative">
-          <div className="absolute top-1/2 left-1/2 w-[800px] max-w-full h-[800px] max-h-full -translate-x-1/2 -translate-y-1/2 opacity-30 pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 w-[90vw] max-w-[800px] h-[90vw] max-h-[800px] -translate-x-1/2 -translate-y-1/2 opacity-30 pointer-events-none">
             <div className="w-full h-full gradient-glow"></div>
           </div>
           <div className="container relative mx-auto px-4">
