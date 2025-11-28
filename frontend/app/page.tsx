@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Link from "next/link";
 import { Sun, Leaf, Zap, Shield, TrendingUp, Users } from "lucide-react";
+import { ProductList } from "@/components/product-list"; // Import your product list component
 
 export default function HomePage() {
   return (
@@ -77,6 +78,20 @@ export default function HomePage() {
                 <p className="text-muted-foreground leading-relaxed">Personal support from planning to commissioning</p>
               </Card>
             </div>
+          </div>
+        </section>
+
+        {/* Products Section */}
+        <section className="py-16 md:py-24">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Products</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                Explore our latest solar solutions and energy products.
+              </p>
+            </div>
+            {/* Render the ProductList component */}
+            <ProductList />
           </div>
         </section>
 
