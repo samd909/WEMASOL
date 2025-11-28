@@ -28,7 +28,7 @@ export function ProductList() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch("http://127.0.0.1:8000/api/products/")
+        const res = await fetch('https://api.wemasol.sdict.nl/api/products/')
         if (!res.ok) throw new Error("Failed to fetch products")
         const data = await res.json()
         setProducts(data.reverse().slice(0, 2)) // take 2 most recent
