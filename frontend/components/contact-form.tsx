@@ -1,131 +1,193 @@
 "use client"
 
-import type React from "react"
-
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
+import { Checkbox } from "@/components/ui/checkbox"
+import {
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  SelectValue,
+} from "@/components/ui/select"
 import { useToast } from "@/hooks/use-toast"
 
+// 🔥 Your dynamic questions array
+const QUESTIONS = [
+  {
+    id: "name",
+    question: "What is your name?",
+    type: "text",
+    required: true,
+  },
+  {
+    id: "email",
+    question: "What is your email?",
+    type: "text",
+    required: true,
+  },
+  {
+    id: "systemType",
+    question: "What solar system are you interested in?",
+    type: "single",
+    required: true,
+    options: ["Off-grid", "On-grid", "Hybrid", "Not sure"],
+  },
+  {
+    id: "roofType",
+    question: "What type of roof do you have?",
+    type: "multi",
+    required: false,
+    options: ["Flat roof", "Pitched roof", "Metal roof", "Tile roof"],
+  },
+  {
+    id: "comments",
+    question: "Any additional info?",
+    type: "textarea",
+    required: false,
+  },
+]
+
 export function ContactForm() {
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const { toast } = useToast()
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const [step, setStep] = useState(0) // current question index
+  const [answers, setAnswers] = useState<Record<string, any>>({})
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const current = QUESTIONS[step]
+
+  const updateAnswer = (value: any) => {
+    setAnswers((prev) => ({ ...prev, [current.id]: value }))
+  }
+
+  const toggleMulti = (option: string) => {
+    const currentVals = answers[current.id] || []
+    if (currentVals.includes(option)) {
+      updateAnswer(currentVals.filter((o: string) => o !== option))
+    } else {
+      updateAnswer([...currentVals, option])
+    }
+  }
+
+  const goNext = () => {
+    if (current.required && !answers[current.id]) return
+    setStep((s) => s + 1)
+  }
+
+  const goBack = () => setStep((s) => s - 1)
+
+  const handleSubmit = async () => {
     setIsSubmitting(true)
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    console.log("Final submitted answers:", answers)
+
+    await new Promise((res) => setTimeout(res, 1500))
 
     toast({
-      title: "Message sent!",
-      description: "Thank you for your inquiry. We will get back to you within 24 hours.",
+      title: "Submission complete",
+      description: "We received your answers!",
     })
 
     setIsSubmitting(false)
-
-    // Reset form
-    const form = e.target as HTMLFormElement
-    form.reset()
   }
+
+  const isLast = step === QUESTIONS.length - 1
 
   return (
     <Card className="p-6 md:p-8 animate-in fade-in slide-in-from-left-4 duration-700">
-      <h2 className="text-2xl font-bold mb-6">Send Us a Message</h2>
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <Label htmlFor="firstName">First Name *</Label>
+      <h2 className="text-2xl font-bold mb-6">Questions ({step + 1}/{QUESTIONS.length})</h2>
+
+      <div className="space-y-6">
+        <div className="space-y-2">
+          <Label className="text-lg font-medium">
+            {current.question} {current.required && "*"}
+          </Label>
+
+          {/* TEXT INPUT */}
+          {current.type === "text" && (
             <Input
-              id="firstName"
-              name="firstName"
-              required
-              placeholder="John"
+              value={answers[current.id] || ""}
+              onChange={(e) => updateAnswer(e.target.value)}
+              required={current.required}
               className="transition-all duration-200 focus:scale-[1.02]"
             />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="lastName">Last Name *</Label>
-            <Input
-              id="lastName"
-              name="lastName"
-              required
-              placeholder="Doe"
+          )}
+
+          {/* TEXTAREA */}
+          {current.type === "textarea" && (
+            <Textarea
+              rows={5}
+              value={answers[current.id] || ""}
+              onChange={(e) => updateAnswer(e.target.value)}
               className="transition-all duration-200 focus:scale-[1.02]"
             />
-          </div>
+          )}
+
+          {/* SINGLE SELECT */}
+          {current.type === "single" && (
+            <Select
+              value={answers[current.id] || ""}
+              onValueChange={(val) => updateAnswer(val)}
+            >
+              <SelectTrigger className="transition-all duration-200 focus:scale-[1.02]">
+                <SelectValue placeholder="Select..." />
+              </SelectTrigger>
+              <SelectContent>
+                {current.options?.map((opt) => (
+                  <SelectItem key={opt} value={opt}>
+                    {opt}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
+
+          {/* MULTI SELECT */}
+          {current.type === "multi" && (
+            <div className="space-y-2">
+              {current.options?.map((opt) => (
+                <div key={opt} className="flex items-center gap-2">
+                  <Checkbox
+                    checked={answers[current.id]?.includes(opt)}
+                    onCheckedChange={() => toggleMulti(opt)}
+                  />
+                  <Label className="cursor-pointer">{opt}</Label>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="email">Email *</Label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            required
-            placeholder="john@example.com"
-            className="transition-all duration-200 focus:scale-[1.02]"
-          />
+        {/* NAVIGATION BUTTONS */}
+        <div className="flex justify-between pt-4">
+          {step > 0 ? (
+            <Button variant="outline" onClick={goBack}>
+              Back
+            </Button>
+          ) : (
+            <div />
+          )}
+
+          {!isLast ? (
+            <Button onClick={goNext} disabled={current.required && !answers[current.id]}>
+              Next
+            </Button>
+          ) : (
+            <Button
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+              className="bg-primary hover:bg-primary/90"
+            >
+              {isSubmitting ? "Submitting..." : "Submit"}
+            </Button>
+          )}
         </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="phone">Phone</Label>
-          <Input
-            id="phone"
-            name="phone"
-            type="tel"
-            placeholder="+49 XXX XXXXXXX"
-            className="transition-all duration-200 focus:scale-[1.02]"
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="subject">Subject *</Label>
-          <Input
-            id="subject"
-            name="subject"
-            required
-            placeholder="e.g., Solar system inquiry"
-            className="transition-all duration-200 focus:scale-[1.02]"
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="message">Your Message *</Label>
-          <Textarea
-            id="message"
-            name="message"
-            required
-            rows={6}
-            placeholder="Describe your request..."
-            className="resize-none transition-all duration-200 focus:scale-[1.02]"
-          />
-        </div>
-
-        <div className="space-y-4">
-          <div className="flex items-start gap-2">
-            <input type="checkbox" id="privacy" name="privacy" required className="mt-1" />
-            <Label htmlFor="privacy" className="text-sm text-muted-foreground cursor-pointer">
-              I agree to the processing of my data in accordance with the privacy policy. *
-            </Label>
-          </div>
-
-          <Button
-            type="submit"
-            size="lg"
-            className="w-full bg-primary hover:bg-primary/90 hover:scale-[1.02] transition-all duration-300"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Sending..." : "Send Message"}
-          </Button>
-
-          <p className="text-xs text-muted-foreground text-center">* Required fields</p>
-        </div>
-      </form>
+      </div>
     </Card>
   )
 }
