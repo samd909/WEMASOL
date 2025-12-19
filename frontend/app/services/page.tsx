@@ -4,180 +4,144 @@ import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import Link from "next/link"
-import { Sun, Settings, Wrench, BarChart3, Home, Building2 } from "lucide-react"
+import { Sun, Settings, Wrench, BarChart3, Home, Building2, CheckCircle2 } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Our Services - Wemasol",
-  description:
-    "Discover our comprehensive services: solar system installation, energy consulting, maintenance & service, planning and more.",
-  keywords: [
-    "solar installation",
-    "photovoltaic planning",
-    "energy consulting",
-    "solar maintenance",
-    "PV system service",
-  ],
+  description: "Discover our comprehensive solar services from installation to maintenance.",
+  keywords: ["solar installation", "photovoltaic planning", "energy consulting", "solar maintenance"],
 }
+
+const services = [
+  {
+    icon: Sun,
+    title: "Photovoltaic Systems",
+    description: "Customized solar systems for your roof. We plan, install, and commission your PV system for maximum efficiency.",
+    features: ["Individual planning and design", "Professional installation", "Registration and commissioning"],
+    delay: "delay-100",
+  },
+  {
+    icon: BarChart3,
+    title: "Energy Consulting",
+    description: "Our experts analyze your energy needs and develop an optimal concept for your individual situation.",
+    features: ["Economic feasibility analysis", "Funding consultation", "Amortization calculation"],
+    delay: "delay-200",
+  },
+  {
+    icon: Wrench,
+    title: "Maintenance & Service",
+    description: "Regular maintenance and fast service ensure long-term high yields and availability of your system.",
+    features: ["Annual inspection", "Fault diagnosis and repair", "Performance optimization"],
+    delay: "delay-300",
+  },
+  {
+    icon: Settings,
+    title: "Planning & Management",
+    description: "From roof analysis to approval – we take care of all technical and administrative steps.",
+    features: ["Structural assessment", "Grid connection coordination", "Authority communication"],
+    delay: "delay-400",
+  },
+]
 
 export default function ServicesPage() {
   return (
     <>
       <Navigation />
-      <main className="subtle-gradient-bg">
-        <section className="py-16 md:py-24">
+      <main className="min-h-screen bg-slate-50/50">
+        {/* Hero Section */}
+        <section className="relative py-20 overflow-hidden">
           <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto text-center mb-16 animate-in fade-in slide-in-from-bottom-3 duration-700">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">Our Services</h1>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                From initial consultation to long-term support – we accompany you on your journey to sustainable energy
-                supply.
+            <div className="max-w-3xl mx-auto text-center animate-in fade-in slide-in-from-top-8 duration-1000">
+              <span className="inline-block px-4 py-1.5 mb-6 text-sm font-medium tracking-wider uppercase text-primary bg-primary/10 rounded-full">
+                Professional Expertise
+              </span>
+              <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900">
+                Our Services
+              </h1>
+              <p className="text-xl text-muted-foreground leading-relaxed">
+                From initial consultation to long-term support – we accompany you on your journey to sustainable energy.
               </p>
             </div>
+          </div>
+        </section>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-              <Card
-                className="p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 animate-in fade-in slide-in-from-left-4 duration-700"
-                style={{ animationDelay: "100ms" }}
-              >
-                <Sun className="h-12 w-12 text-primary mb-4" />
-                <h2 className="text-2xl font-bold mb-4">Photovoltaic Systems</h2>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Customized solar systems for your roof. We plan, install, and commission your PV system – for maximum
-                  efficiency and output.
-                </p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary mt-1">✓</span>
-                    <span className="text-sm">Individual planning and design</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary mt-1">✓</span>
-                    <span className="text-sm">Professional installation</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary mt-1">✓</span>
-                    <span className="text-sm">Registration and commissioning</span>
-                  </li>
-                </ul>
-              </Card>
+        <section className="pb-24">
+          <div className="container mx-auto px-4">
+            {/* Main Services Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-20">
+              {services.map((service, index) => (
+                <Card
+                  key={index}
+                  className={`group relative p-8 border-none bg-white shadow-sm hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 animate-in fade-in slide-in-from-bottom-12 fill-mode-both ${service.delay}`}
+                >
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="p-3 rounded-2xl bg-primary/5 group-hover:bg-primary/10 transition-colors">
+                      <service.icon className="h-8 w-8 text-primary transition-transform duration-500 group-hover:scale-110" />
+                    </div>
+                    <h2 className="text-2xl font-bold text-slate-900">{service.title}</h2>
+                  </div>
+                  
+                  <p className="text-muted-foreground mb-8 leading-relaxed min-h-[60px]">
+                    {service.description}
+                  </p>
 
-              <Card
-                className="p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 animate-in fade-in slide-in-from-right-4 duration-700"
-                style={{ animationDelay: "200ms" }}
-              >
-                <BarChart3 className="h-12 w-12 text-primary mb-4" />
-                <h2 className="text-2xl font-bold mb-4">Energy Consulting</h2>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Our experts analyze your energy needs and develop an optimal concept for your individual situation.
-                </p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary mt-1">✓</span>
-                    <span className="text-sm">Economic feasibility analysis</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary mt-1">✓</span>
-                    <span className="text-sm">Funding consultation</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary mt-1">✓</span>
-                    <span className="text-sm">Amortization calculation</span>
-                  </li>
-                </ul>
-              </Card>
-
-              <Card
-                className="p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 animate-in fade-in slide-in-from-left-4 duration-700"
-                style={{ animationDelay: "300ms" }}
-              >
-                <Wrench className="h-12 w-12 text-primary mb-4" />
-                <h2 className="text-2xl font-bold mb-4">Maintenance & Service</h2>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Regular maintenance and fast service ensure long-term high yields and availability of your system.
-                </p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary mt-1">✓</span>
-                    <span className="text-sm">Annual inspection</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary mt-1">✓</span>
-                    <span className="text-sm">Fault diagnosis and repair</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary mt-1">✓</span>
-                    <span className="text-sm">Performance optimization</span>
-                  </li>
-                </ul>
-              </Card>
-
-              <Card
-                className="p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 animate-in fade-in slide-in-from-right-4 duration-700"
-                style={{ animationDelay: "400ms" }}
-              >
-                <Settings className="h-12 w-12 text-primary mb-4" />
-                <h2 className="text-2xl font-bold mb-4">Planning & Project Management</h2>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  From roof analysis to approval – we take care of all technical and administrative steps.
-                </p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary mt-1">✓</span>
-                    <span className="text-sm">Structural assessment</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary mt-1">✓</span>
-                    <span className="text-sm">Grid connection coordination</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary mt-1">✓</span>
-                    <span className="text-sm">Authority communication</span>
-                  </li>
-                </ul>
-              </Card>
+                  <ul className="space-y-3">
+                    {service.features.map((feature, i) => (
+                      <li key={i} className="flex items-center gap-3 text-sm font-medium text-slate-700">
+                        <CheckCircle2 className="h-4 w-4 text-primary/60" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </Card>
+              ))}
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-              <Card
-                className="p-8 bg-primary/5 border-primary/20 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 animate-in fade-in zoom-in-95 duration-700"
-                style={{ animationDelay: "500ms" }}
-              >
-                <Home className="h-10 w-10 text-primary mb-4" />
-                <h3 className="text-xl font-bold mb-3">Residential Customers</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Solar systems for single-family homes, apartment buildings, and residential properties. Become
-                  independent from rising electricity prices.
+            {/* Target Audience Section */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
+              <div className="flex flex-col p-10 rounded-3xl bg-slate-900 text-white animate-in fade-in slide-in-from-left-8 duration-1000 fill-mode-both delay-500">
+                <Home className="h-12 w-12 text-primary mb-6" />
+                <h3 className="text-2xl font-bold mb-4">Residential Customers</h3>
+                <p className="text-slate-400 mb-6 leading-relaxed">
+                  Solar systems for single-family homes and apartment buildings. Become independent from rising electricity prices with a custom home solution.
                 </p>
-              </Card>
+                <div className="mt-auto">
+                  <div className="h-1 w-12 bg-primary rounded-full" />
+                </div>
+              </div>
 
-              <Card
-                className="p-8 bg-secondary/5 border-secondary/20 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 animate-in fade-in zoom-in-95 duration-700"
-                style={{ animationDelay: "600ms" }}
-              >
-                <Building2 className="h-10 w-10 text-secondary mb-4" />
-                <h3 className="text-xl font-bold mb-3">Commercial Customers</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Commercial PV systems for businesses, industry, and public institutions. Sustainably reduce your
-                  operating costs.
+              <div className="flex flex-col p-10 rounded-3xl bg-white border border-slate-200 animate-in fade-in slide-in-from-right-8 duration-1000 fill-mode-both delay-500">
+                <Building2 className="h-12 w-12 text-primary mb-6" />
+                <h3 className="text-2xl font-bold mb-4">Commercial Customers</h3>
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  Commercial PV systems for businesses and industry. Significantly reduce your long-term operating costs and carbon footprint.
                 </p>
-              </Card>
+                <div className="mt-auto">
+                  <div className="h-1 w-12 bg-primary rounded-full" />
+                </div>
+              </div>
             </div>
 
-            <div
-              className="max-w-3xl mx-auto text-center bg-gradient-to-br from-primary/5 to-accent/5 rounded-lg p-8 md:p-12 animate-in fade-in zoom-in-95 duration-700"
-              style={{ animationDelay: "700ms" }}
-            >
-              <h2 className="text-2xl md:text-3xl font-bold mb-4">Interested in Our Services?</h2>
-              <p className="text-muted-foreground mb-6 leading-relaxed">
-                Contact us for a no-obligation consultation and learn how we can help you.
-              </p>
-              <Button
-                asChild
-                size="lg"
-                className="bg-primary hover:bg-primary/90 hover:scale-105 transition-all duration-300"
-              >
-                <Link href="/contact">Get Consultation Now</Link>
-              </Button>
+            {/* CTA Section */}
+            <div className="relative overflow-hidden rounded-[2rem] bg-primary px-8 py-16 md:py-20 text-center text-primary-foreground animate-in zoom-in-95 duration-700 fill-mode-both delay-700">
+              {/* Decorative Circle Background */}
+              <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-64 h-64 bg-black/10 rounded-full blur-2xl pointer-events-none" />
+              
+              <div className="relative z-10 max-w-2xl mx-auto">
+                <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to switch to solar energy?</h2>
+                <p className="text-primary-foreground/80 text-lg mb-10 leading-relaxed">
+                  Join hundreds of satisfied customers. Contact us today for a free, no-obligation expert consultation.
+                </p>
+                <Button
+                  asChild
+                  size="lg"
+                  variant="secondary"
+                  className="rounded-full px-10 py-6 text-lg font-semibold hover:scale-105 transition-transform"
+                >
+                  <Link href="/contact">Get Consultation Now</Link>
+                </Button>
+              </div>
             </div>
           </div>
         </section>
