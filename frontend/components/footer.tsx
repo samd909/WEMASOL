@@ -12,7 +12,7 @@ export function Footer() {
               <span className="text-primary">Wemasol</span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Your experts for sustainable energy solutions and a greener future.
+              Ihre Experten für nachhaltige Energielösungen und eine grünere Zukunft.
             </p>
           </div>
 
@@ -21,39 +21,49 @@ export function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link href="/" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  Home
+                  Startseite
                 </Link>
               </li>
               <li>
                 <Link href="/services" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  Services
+                  Leistungen
+                </Link>
+              </li>
+              <li>
+                <Link href="/ev" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  E-Mobilität
                 </Link>
               </li>
               <li>
                 <Link href="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  About
+                  Über uns
                 </Link>
               </li>
               <li>
                 <Link href="/contact" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  Contact
+                  Kontakt
+                </Link>
+              </li>
+              <li>
+                <Link href="/products" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  Produkte
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4">Services</h3>
+            <h3 className="font-semibold mb-4">Leistungen</h3>
             <ul className="space-y-2">
-              <li className="text-sm text-muted-foreground">Solar Systems</li>
-              <li className="text-sm text-muted-foreground">Energy Consulting</li>
-              <li className="text-sm text-muted-foreground">Maintenance & Service</li>
-              <li className="text-sm text-muted-foreground">Planning & Installation</li>
+              <li className="text-sm text-muted-foreground">Ladesäulen & Wallboxen</li>
+              <li className="text-sm text-muted-foreground">Beratung & Konzepte</li>
+              <li className="text-sm text-muted-foreground">Installation & Inbetriebnahme</li>
+              <li className="text-sm text-muted-foreground">Wartung & Service</li>
             </ul>
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4">Contact</h3>
+            <h3 className="font-semibold mb-4">Kontakt</h3>
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Mail className="h-4 w-4 text-primary" />
@@ -69,14 +79,14 @@ export function Footer() {
               </li>
               <li className="flex items-start gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4 text-primary mt-0.5" />
-                <span>Germany</span>
+                <span>Deutschland</span>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="mt-12 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Wemasol. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Wemasol. Alle Rechte vorbehalten.</p>
         </div>
       </div>
     </footer>

@@ -3,36 +3,36 @@ import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Link from "next/link";
-import { Sun, Leaf, Zap, Shield, TrendingUp, Users, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Sun, Leaf, Zap, Shield, TrendingUp, Users, ArrowRight } from "lucide-react";
 import { ProductList } from "@/components/product-list";
 
 export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
-        <Navigation />
+      <Navigation />
 
       <main className="flex-grow">
-        {/* Hero Section - Clean White Background */}
+        {/* Hero Section */}
         <section className="relative overflow-hidden py-24 md:py-32 bg-white">
           <div className="container relative mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center animate-in fade-in slide-in-from-top-8 duration-1000">
               <span className="inline-block px-4 py-1.5 mb-6 text-sm font-medium tracking-wider uppercase text-primary bg-primary/10 rounded-full">
-                Professional Solar Solutions
+                Professionelle Solarlösungen
               </span>
               <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900">
-                Green Energy for a <br />
-                <span className="text-primary">Sustainable Future</span>
+                Grüne Energie für eine <br />
+                <span className="text-primary">nachhaltige Zukunft</span>
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-10">
-                Wemasol is your partner for renewable energy. We offer innovative solar solutions and professional consulting for a greener world.
+                Wemasol ist Ihr Partner für erneuerbare Energien. Wir bieten innovative Solarlösungen und professionelle Beratung für eine grünere Welt.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <Button asChild size="lg" className="rounded-full px-10 py-6 text-lg font-semibold hover:scale-105 transition-all shadow-md">
-                  <Link href="/contact">Free Consultation</Link>
+                  <Link href="/contact">Kostenlose Beratung</Link>
                 </Button>
                 <Button asChild size="lg" variant="ghost" className="rounded-full px-10 py-6 text-lg font-semibold group hover:bg-slate-50">
                   <Link href="/services" className="flex items-center gap-2">
-                    Our Services <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                    Unsere Leistungen <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
               </div>
@@ -40,22 +40,24 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Features Section - Pure White with subtle shadow cards */}
+        {/* Features Section */}
         <section className="py-24 border-t border-slate-50 bg-white">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16 animate-in fade-in duration-700">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight">Why Wemasol?</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight">
+                Warum Wemasol?
+              </h2>
               <div className="h-1.5 w-16 bg-primary mx-auto rounded-full" />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
-                { icon: Sun, title: "Solar Energy", text: "High-efficiency photovoltaic systems for maximum energy yield.", delay: "delay-100" },
-                { icon: Leaf, title: "Sustainability", text: "100% renewable energy for an environmentally friendly future.", delay: "delay-200" },
-                { icon: Zap, title: "Efficiency", text: "State-of-the-art technology for optimal performance and output.", delay: "delay-300" },
-                { icon: Shield, title: "Quality", text: "Certified components with long-term warranty and support.", delay: "delay-400" },
-                { icon: TrendingUp, title: "Cost-Effective", text: "Long-term cost savings through your own power generation.", delay: "delay-500" },
-                { icon: Users, title: "Consulting", text: "Personal support from planning to final commissioning.", delay: "delay-700" },
+                { icon: Sun, title: "Solarenergie", text: "Hocheffiziente Photovoltaikanlagen für maximale Energieerträge.", delay: "delay-100" },
+                { icon: Leaf, title: "Nachhaltigkeit", text: "100 % erneuerbare Energie für eine umweltfreundliche Zukunft.", delay: "delay-200" },
+                { icon: Zap, title: "Effizienz", text: "Modernste Technologie für optimale Leistung und Ertrag.", delay: "delay-300" },
+                { icon: Shield, title: "Qualität", text: "Zertifizierte Komponenten mit langfristiger Garantie und Support.", delay: "delay-400" },
+                { icon: TrendingUp, title: "Wirtschaftlichkeit", text: "Langfristige Kosteneinsparungen durch eigene Stromerzeugung.", delay: "delay-500" },
+                { icon: Users, title: "Beratung", text: "Persönliche Betreuung von der Planung bis zur Inbetriebnahme.", delay: "delay-700" },
               ].map((feature, index) => (
                 <Card
                   key={index}
@@ -74,38 +76,43 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Products Section - Clean Design */}
+        {/* Products Section */}
         <section className="py-24 bg-white border-y border-slate-50">
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row items-end justify-between mb-12 gap-4">
               <div className="animate-in fade-in slide-in-from-left-6 duration-700">
-                <h2 className="text-3xl font-bold text-slate-900 tracking-tight">Our latest products</h2>
-                <p className="text-muted-foreground mt-2">Explore our premium solar and energy storage solutions.</p>
+                <h2 className="text-3xl font-bold text-slate-900 tracking-tight">
+                  Unsere neuesten Produkte
+                </h2>
+                <p className="text-muted-foreground mt-2">
+                  Entdecken Sie unsere hochwertigen Solar- und Speicherlösungen.
+                </p>
               </div>
               <Button asChild variant="link" className="text-primary font-bold text-md p-0 group">
                 <Link href="/products" className="flex items-center gap-1">
-                  View All Products <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  Alle Produkte anzeigen <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
             </div>
             <div className="animate-in fade-in slide-in-from-bottom-8 duration-1000">
-               <ProductList />
+              <ProductList />
             </div>
           </div>
         </section>
 
-        {/* CTA Section - Matches Services Page exactly */}
+        {/* CTA Section */}
         <section className="py-24 bg-white">
           <div className="container mx-auto px-4">
             <div className="relative overflow-hidden rounded-[2.5rem] bg-primary px-8 py-16 md:py-20 text-center text-primary-foreground animate-in zoom-in-95 duration-700 fill-mode-both">
-              {/* Decorative Circle Background */}
               <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
               <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-64 h-64 bg-black/10 rounded-full blur-2xl pointer-events-none" />
-              
+
               <div className="relative z-10 max-w-2xl mx-auto">
-                <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">Ready for Your Green Energy Future?</h2>
+                <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
+                  Bereit für Ihre grüne Energiezukunft?
+                </h2>
                 <p className="text-primary-foreground/80 text-lg mb-10 leading-relaxed">
-                  Join hundreds of satisfied customers. Contact us today for a free, no-obligation expert consultation.
+                  Schließen Sie sich hunderten zufriedenen Kunden an. Kontaktieren Sie uns noch heute für eine kostenlose und unverbindliche Fachberatung.
                 </p>
                 <Button
                   asChild
@@ -113,13 +120,14 @@ export default function HomePage() {
                   variant="secondary"
                   className="rounded-full px-10 py-7 text-lg font-semibold hover:scale-105 transition-transform shadow-xl"
                 >
-                  <Link href="/contact">Get Consultation Now</Link>
+                  <Link href="/contact">Jetzt Beratung sichern</Link>
                 </Button>
               </div>
             </div>
           </div>
         </section>
       </main>
+
       <Footer />
     </div>
   );

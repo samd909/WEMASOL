@@ -3,34 +3,48 @@ import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { ContactForm } from "@/components/contact-form"
 import { Card } from "@/components/ui/card"
-import { Mail, Phone, MapPin, Clock, MessageSquare, CheckCircle2, HelpCircle } from "lucide-react"
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Clock,
+  MessageSquare,
+  CheckCircle2,
+  HelpCircle,
+} from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Contact - Wemasol",
-  description: "Get in touch with Wemasol for a free solar energy consultation.",
-  keywords: ["Wemasol contact", "solar consulting", "PV inquiry", "energy consultation"],
+  title: "Kontakt – Wemasol",
+  description:
+    "Kontaktieren Sie Wemasol für eine unverbindliche Beratung rund um Ladeinfrastruktur, Wallboxen und Elektromobilität.",
+  keywords: [
+    "Wemasol Kontakt",
+    "Elektromobilität Beratung",
+    "Wallbox Anfrage",
+    "Ladeinfrastruktur Kontakt",
+  ],
 }
 
 export default function ContactPage() {
   const contactMethods = [
     {
       icon: Mail,
-      label: "Email Us",
+      label: "E-Mail",
       value: "info@wemasol.de",
       href: "mailto:info@wemasol.de",
       delay: "delay-100",
     },
     {
       icon: Phone,
-      label: "Call Us",
+      label: "Telefon",
       value: "+49 (0) XXX XXXXXXX",
       href: "tel:+49",
       delay: "delay-200",
     },
     {
       icon: MapPin,
-      label: "Visit Us",
-      value: "Germany HQ",
+      label: "Standort",
+      value: "Deutschland",
       href: "#",
       delay: "delay-300",
     },
@@ -40,16 +54,18 @@ export default function ContactPage() {
     <>
       <Navigation />
       <main className="min-h-screen bg-white">
-        {/* Simple Header */}
+        {/* Header */}
         <section className="pt-20 pb-12 bg-slate-50">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl animate-in fade-in slide-in-from-bottom-6 duration-1000 fill-mode-both">
               <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 mb-6">
-                Let&apos;s talk <span className="text-primary">Solar.</span>
+                Sprechen wir über <span className="text-primary">Ladelösungen.</span>
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed">
-                Have questions about our systems or need a customized quote? 
-                Our team is ready to help you power your future.
+                Sie planen eine Wallbox, Ladeinfrastruktur für Ihr Unternehmen
+                oder haben Fragen zur Elektromobilität?
+                <br />
+                Unser Team berät Sie persönlich und unverbindlich.
               </p>
             </div>
           </div>
@@ -57,7 +73,7 @@ export default function ContactPage() {
 
         <section className="py-16 bg-gray-50">
           <div className="container bg-transparent mx-auto px-4">
-            {/* Contact Quick Links */}
+            {/* Quick Contact */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
               {contactMethods.map((method, i) => (
                 <a
@@ -83,56 +99,61 @@ export default function ContactPage() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-              {/* Left Column: Form */}
+              {/* Form */}
               <div className="lg:col-span-7 animate-in fade-in slide-in-from-left-8 duration-1000 fill-mode-both delay-300">
                 <div className="bg-white rounded-3xl p-1 shadow-sm border border-slate-100">
                   <div className="p-8 md:p-10">
                     <div className="flex items-center gap-3 mb-8">
                       <MessageSquare className="h-6 w-6 text-primary" />
-                      <h2 className="text-2xl font-bold">Send us a Message</h2>
+                      <h2 className="text-2xl font-bold">
+                        Nachricht senden
+                      </h2>
                     </div>
                     <ContactForm />
                   </div>
                 </div>
               </div>
 
-              {/* Right Column: Info & FAQ */}
+              {/* Info Column */}
               <div className="lg:col-span-5 space-y-8 animate-in fade-in slide-in-from-right-8 duration-1000 fill-mode-both delay-400">
                 {/* Business Hours */}
-                <div className="p-8 rounded-3xl bg-white shadow-md border-gray-100 text-black ">
+                <div className="p-8 rounded-3xl bg-white shadow-md border-gray-100 text-black">
                   <div className="flex items-center gap-3 mb-6">
                     <Clock className="h-6 w-6 text-primary" />
-                    <h3 className="text-xl font-bold">Business Hours</h3>
+                    <h3 className="text-xl font-bold">Erreichbarkeit</h3>
                   </div>
                   <div className="space-y-4 opacity-90">
-                    <div className="flex justify-between border-b border-white/10 pb-2">
-                      <span className="text-slate-400">Monday - Friday</span>
-                      <span className="font-mono">09:00 - 18:00</span>
+                    <div className="flex justify-between border-b pb-2">
+                      <span className="text-slate-400">Montag – Freitag</span>
+                      <span className="font-mono">09:00 – 18:00</span>
                     </div>
-                    <div className="flex justify-between border-b border-white/10 pb-2">
-                      <span className="text-slate-400">Saturday</span>
-                      <span className="font-mono">10:00 - 14:00</span>
+                    <div className="flex justify-between border-b pb-2">
+                      <span className="text-slate-400">Samstag</span>
+                      <span className="font-mono">10:00 – 14:00</span>
                     </div>
                     <div className="flex justify-between text-primary font-bold">
-                      <span>Sunday</span>
-                      <span>Closed</span>
+                      <span>Sonntag</span>
+                      <span>Geschlossen</span>
                     </div>
                   </div>
                 </div>
 
-                {/* What to Expect */}
-                <div className="p-8 rounded-3xl bg-primary/5 border border-primary/10 shadow-md border-gray-100">
+                {/* What Happens Next */}
+                <div className="p-8 rounded-3xl bg-primary/5 border border-primary/10 shadow-md">
                   <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
                     <CheckCircle2 className="h-6 w-6 text-primary" />
-                    Next Steps
+                    So geht es weiter
                   </h3>
                   <ul className="space-y-4">
                     {[
-                      "Free initial consultation",
-                      "Personal energy analysis",
-                      "Response within 24 hours",
+                      "Kostenlose Erstberatung",
+                      "Individuelle Analyse Ihrer Anforderungen",
+                      "Rückmeldung innerhalb von 24 Stunden",
                     ].map((item, i) => (
-                      <li key={i} className="flex items-center gap-3 text-slate-700 font-medium">
+                      <li
+                        key={i}
+                        className="flex items-center gap-3 text-slate-700 font-medium"
+                      >
                         <div className="h-1.5 w-1.5 rounded-full bg-primary" />
                         {item}
                       </li>
@@ -144,16 +165,25 @@ export default function ContactPage() {
                 <div className="p-8 rounded-3xl border border-gray-100 bg-white shadow-md">
                   <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
                     <HelpCircle className="h-6 w-6 text-primary" />
-                    Quick FAQ
+                    Kurz & knapp
                   </h3>
                   <div className="space-y-6">
                     <div>
-                      <p className="font-bold text-slate-900 text-sm mb-1">How fast can you start?</p>
-                      <p className="text-sm text-muted-foreground">Usually within 2-4 weeks of approval.</p>
+                      <p className="font-bold text-slate-900 text-sm mb-1">
+                        Wie schnell geht es los?
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        In der Regel innerhalb von 2–4 Wochen nach Freigabe.
+                      </p>
                     </div>
                     <div>
-                      <p className="font-bold text-slate-900 text-sm mb-1">Do you assist with funding?</p>
-                      <p className="text-sm text-muted-foreground">Yes, we guide you through all local subsidies.</p>
+                      <p className="font-bold text-slate-900 text-sm mb-1">
+                        Unterstützen Sie bei Förderungen?
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        Ja, wir beraten Sie zu passenden Förderprogrammen
+                        und Rahmenbedingungen.
+                      </p>
                     </div>
                   </div>
                 </div>

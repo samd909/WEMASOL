@@ -9,12 +9,12 @@ export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
 
   const navItems = [
-    { href: "/", label: "Home" },
-    { href: "/services", label: "Services" },
-    { href: "/about", label: "About" },
-    { href: "/contact", label: "Contact" },
-    { href: "/products", label: "Products" },
-
+    { href: "/", label: "Startseite" },
+    { href: "/services", label: "Leistungen" },
+    { href: "/ev", label: "E-Mobilität" },
+    { href: "/about", label: "Über uns" },
+    { href: "/products", label: "Produkte" },
+    { href: "/contact", label: "Kontakt" },
   ]
 
   return (
@@ -38,12 +38,16 @@ export function Navigation() {
               </Link>
             ))}
             <Button asChild className="bg-primary hover:bg-primary/90">
-              <Link href="/contact">Get Consultation</Link>
+              <Link href="/contact">Kostenlose Beratung</Link>
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
-          <button className="md:hidden" onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
+          <button
+            className="md:hidden"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Menü öffnen"
+          >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
@@ -63,7 +67,7 @@ export function Navigation() {
             ))}
             <Button asChild className="w-full bg-primary hover:bg-primary/90">
               <Link href="/contact" onClick={() => setIsOpen(false)}>
-                Get Consultation
+                Kostenlose Beratung
               </Link>
             </Button>
           </div>
