@@ -40,41 +40,71 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Features Section */}
-        <section className="py-24 border-t border-slate-50 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16 animate-in fade-in duration-700">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight">
-                Warum Wemasol?
-              </h2>
-              <div className="h-1.5 w-16 bg-primary mx-auto rounded-full" />
-            </div>
+{/* Features Section */}
+<section className="py-24 border-t border-slate-50 bg-white">
+  <div className="container mx-auto px-4">
+    <div className="text-center mb-16 animate-in fade-in duration-700">
+      <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight">
+        Warum WEMASOL?
+      </h2>
+      <div className="h-1.5 w-16 bg-primary mx-auto rounded-full" />
+    </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[
-                { icon: Sun, title: "Solarenergie", text: "Hocheffiziente Photovoltaikanlagen für maximale Energieerträge.", delay: "delay-100" },
-                { icon: Leaf, title: "Nachhaltigkeit", text: "100 % erneuerbare Energie für eine umweltfreundliche Zukunft.", delay: "delay-200" },
-                { icon: Zap, title: "Effizienz", text: "Modernste Technologie für optimale Leistung und Ertrag.", delay: "delay-300" },
-                { icon: Shield, title: "Qualität", text: "Zertifizierte Komponenten mit langfristiger Garantie und Support.", delay: "delay-400" },
-                { icon: TrendingUp, title: "Wirtschaftlichkeit", text: "Langfristige Kosteneinsparungen durch eigene Stromerzeugung.", delay: "delay-500" },
-                { icon: Users, title: "Beratung", text: "Persönliche Betreuung von der Planung bis zur Inbetriebnahme.", delay: "delay-700" },
-              ].map((feature, index) => (
-                <Card
-                  key={index}
-                  className={`group p-8 border-none bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 animate-in fade-in slide-in-from-bottom-8 fill-mode-both ${feature.delay}`}
-                >
-                  <div className="p-3 rounded-2xl bg-primary/5 group-hover:bg-primary/10 transition-colors inline-block mb-6">
-                    <feature.icon className="h-8 w-8 text-primary transition-transform duration-500 group-hover:scale-110" />
-                  </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-3">{feature.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed text-sm">
-                    {feature.text}
-                  </p>
-                </Card>
-              ))}
-            </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {[
+        {
+          icon: Users,
+          title: "Zuverlässiger Ansprechpartner",
+          text: "WEMASOL ist Ihr zuverlässiger Ansprechpartner für Solaranlagen und Mieterstrommodelle.",
+          delay: "delay-100",
+        },
+        {
+          icon: Zap,
+          title: "Ganzheitliche Projektbegleitung",
+          text: "Von der Erstberatung und Wirtschaftlichkeitsanalyse über die Projektkoordination bis zur langfristigen Betreuung.",
+          delay: "delay-200",
+        },
+        {
+          icon: Shield,
+          title: "Starkes Partnernetzwerk",
+          text: "Umsetzung ausschließlich durch geprüfte, eigenständig tätige Elektro- und Installationsfachbetriebe.",
+          delay: "delay-300",
+        },
+        {
+          icon: Leaf,
+          title: "Transparente Abläufe",
+          text: "Klare Zuständigkeiten, strukturierte Prozesse und nachvollziehbare Entscheidungen.",
+          delay: "delay-400",
+        },
+        {
+          icon: TrendingUp,
+          title: "Nachhaltig & wirtschaftlich",
+          text: "Zukunftsfähige Solarlösungen und Mieterstromkonzepte mit Fokus auf Effizienz, Planungssicherheit und Wertsteigerung von Immobilien.",
+          delay: "delay-500",
+        },
+        {
+          icon: Sun,
+          title: "Unterstützung für Eigentümer & Investoren",
+          text: "Wir unterstützen Immobilieneigentümer und Investoren bei der Planung, Bewertung und Umsetzung nachhaltiger Energiekonzepte.",
+          delay: "delay-600",
+        },
+      ].map((feature, index) => (
+        <Card
+          key={index}
+          className={`group p-8 border-none bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 animate-in fade-in slide-in-from-bottom-8 fill-mode-both ${feature.delay}`}
+        >
+          <div className="p-3 rounded-2xl bg-primary/5 group-hover:bg-primary/10 transition-colors inline-block mb-6">
+            <feature.icon className="h-8 w-8 text-primary transition-transform duration-500 group-hover:scale-110" />
           </div>
-        </section>
+          <h3 className="text-xl font-bold text-slate-900 mb-3">{feature.title}</h3>
+          <p className="text-muted-foreground leading-relaxed text-sm">
+            {feature.text}
+          </p>
+        </Card>
+      ))}
+    </div>
+  </div>
+</section>
 
         {/* Products Section */}
         <section className="py-24 bg-white border-y border-slate-50">

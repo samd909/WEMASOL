@@ -4,47 +4,40 @@ import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import Link from "next/link"
-import {
-  Target,
-  Heart,
-  Award,
-  Users,
-  ShieldCheck,
-  Zap,
-  ArrowRight,
-} from "lucide-react"
+import { Target, Leaf, Award, Users, ShieldCheck, ArrowRight } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Über uns – Wemasol",
+  title: "Über uns – WEMASOL",
   description:
-    "Erfahren Sie mehr über Wemasol – Ihr Partner für zukunftssichere Ladeinfrastruktur, Elektromobilität und nachhaltige Energielösungen.",
+    "Erfahren Sie mehr über WEMASOL – Ihr Ansprechpartner für Solarlösungen, Mieterstrommodelle und nachhaltige Energiekonzepte.",
   keywords: [
-    "Wemasol",
+    "WEMASOL",
     "Über uns",
-    "Elektromobilität",
-    "Ladesäulen Anbieter",
-    "Wallbox Experte",
-    "Energie Lösungen",
+    "Solarenergie",
+    "Mieterstrom",
+    "Nachhaltige Energielösungen",
+    "Photovoltaik",
   ],
 }
 
+// Key points for Mission, Vision, Expertise
 const values = [
   {
     icon: Target,
     title: "Unsere Mission",
-    desc: "Elektromobilität einfach, sinnvoll und zukunftssicher machen – mit durchdachten Lade- und Energielösungen für Privatkunden und Unternehmen.",
+    desc: "Energie neu gestalten – nachhaltig, transparent, koordiniert. Wir unterstützen Eigentümer und Investoren bei der Umsetzung moderner Photovoltaik- und Mieterstromkonzepte und begleiten Projekte von der Analyse bis zur langfristigen Betreuung.",
     delay: "delay-100",
   },
   {
-    icon: Heart,
-    title: "Unsere Werte",
-    desc: "Qualität, Transparenz und Verlässlichkeit. Wir planen jede Lösung so, als wäre sie für unser eigenes Zuhause oder Unternehmen.",
+    icon: Leaf,
+    title: "Unsere Vision",
+    desc: "Eine Energiewelt, in der nachhaltige Lösungen einfach umsetzbar sind. Wir möchten Photovoltaik- und Mieterstromprojekte effizient planen, professionell umsetzen und langfristig erfolgreich betreiben.",
     delay: "delay-200",
   },
   {
     icon: Award,
     title: "Unsere Expertise",
-    desc: "Erfahrene Energie- und Elektromobilitäts-Experten mit technischem Know-how und einem klaren Blick für praktikable Lösungen.",
+    desc: "WEMASOL vermittelt zwischen Eigentümern, Investoren und zertifizierten Fachbetrieben. Wir beraten, koordinieren und begleiten Projekte von der Idee bis zur Umsetzung.",
     delay: "delay-300",
   },
 ]
@@ -59,43 +52,30 @@ export default function AboutPage() {
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center animate-in fade-in slide-in-from-bottom-6 duration-1000 fill-mode-both">
               <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 text-slate-900">
-                Wir gestalten die <span className="text-primary">Mobilität von morgen</span>
+                WEMASOL – Ihr <span className="text-primary">Ansprechpartner für Solarlösungen</span>
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed">
-                Wemasol ist mehr als ein Technikdienstleister.  
-                Wir sind ein engagiertes Team aus Energie- und Elektromobilitäts-Experten,
-                das nachhaltige Ladeinfrastruktur einfach und verständlich macht.
+                WEMASOL vermittelt zwischen Immobilieneigentümern, Investoren und qualifizierten Fachbetrieben für Solaranlagen und Mieterstrommodelle. Wir beraten, koordinieren und begleiten Projekte von der Idee bis zur Umsetzung. Die Installation und technische Ausführung erfolgt ausschließlich durch unabhängige, zertifizierte Partnerbetriebe.
               </p>
             </div>
           </div>
         </section>
 
-        {/* Story & Values */}
+        {/* Mission, Vision, Expertise */}
         <section className="py-20">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start mb-24">
               <div className="space-y-6 animate-in fade-in slide-in-from-left-8 duration-1000 fill-mode-both">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-semibold">
-                  <Zap className="h-4 w-4" /> Unsere Geschichte
+                  <Users className="h-4 w-4" /> Unsere Philosophie
                 </div>
-                <h2 className="text-3xl font-bold text-slate-900">
-                  Elektromobilität verständlich gemacht
-                </h2>
+                <h2 className="text-3xl font-bold text-slate-900">Nachhaltige Energielösungen für Immobilien</h2>
                 <div className="space-y-4 text-lg text-muted-foreground leading-relaxed">
                   <p>
-                    Wemasol wurde mit dem Ziel gegründet, Elektromobilität für alle
-                    zugänglich zu machen – ohne komplizierte Technik, Unsicherheit
-                    oder unklare Kosten.
+                    Im Mittelpunkt stehen wirtschaftlich sinnvolle Energielösungen, transparente Abläufe und verlässliche Zusammenarbeit.
                   </p>
                   <p>
-                    Was als fokussierte Energieberatung begann, entwickelte sich zu
-                    einem ganzheitlichen Anbieter für Ladeinfrastruktur, Wallboxen
-                    und intelligente Energielösungen.
-                  </p>
-                  <p>
-                    Heute unterstützen wir Privatkunden und Unternehmen dabei,
-                    ihre Fahrzeuge zuverlässig, wirtschaftlich und zukunftssicher
-                    zu laden – abgestimmt auf reale Anforderungen.
+                    Durch strukturierte Prozesse und ein starkes Partnernetzwerk schaffen wir nachhaltigen Mehrwert für Eigentümer, Investoren und Mieter.
                   </p>
                 </div>
               </div>
@@ -113,12 +93,8 @@ export default function AboutPage() {
                         </div>
                       </div>
                       <div>
-                        <h3 className="text-xl font-bold mb-2 text-slate-900">
-                          {item.title}
-                        </h3>
-                        <p className="text-muted-foreground leading-relaxed">
-                          {item.desc}
-                        </p>
+                        <h3 className="text-xl font-bold mb-2 text-slate-900">{item.title}</h3>
+                        <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
                       </div>
                     </div>
                   </Card>
@@ -126,11 +102,11 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Stats */}
+            {/* Stats Section (optional, can keep or update) */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
-              {[
-                { label: "Realisierte Ladepunkte", value: "500+", icon: ShieldCheck },
-                { label: "Zufriedene Kunden", value: "98%", icon: Heart },
+              {[ 
+                { label: "Zufriedene Projekte", value: "100+", icon: ShieldCheck },
+                { label: "Zufriedene Kunden", value: "98%", icon: Users },
                 { label: "Jahre Erfahrung", value: "10+", icon: Award },
               ].map((stat, i) => (
                 <div
@@ -138,12 +114,8 @@ export default function AboutPage() {
                   className="relative p-10 text-center rounded-3xl border border-slate-100 bg-white hover:border-primary/20 transition-colors animate-in zoom-in-95 duration-700 fill-mode-both"
                   style={{ animationDelay: `${(i + 1) * 150}ms` }}
                 >
-                  <div className="text-5xl font-black text-slate-900 mb-3">
-                    {stat.value}
-                  </div>
-                  <p className="text-sm uppercase tracking-widest font-bold text-primary">
-                    {stat.label}
-                  </p>
+                  <div className="text-5xl font-black text-slate-900 mb-3">{stat.value}</div>
+                  <p className="text-sm uppercase tracking-widest font-bold text-primary">{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -154,11 +126,10 @@ export default function AboutPage() {
               <div className="relative z-10 max-w-2xl mx-auto">
                 <Users className="h-12 w-12 text-primary mx-auto mb-6" />
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                  Bereit für den nächsten Schritt?
+                  Bereit für Ihr Energieprojekt?
                 </h2>
                 <p className="text-slate-400 text-lg mb-8">
-                  Wir begleiten Sie von der ersten Idee bis zur fertigen
-                  Ladeinfrastruktur – zuverlässig, transparent und persönlich.
+                  Ob Eigentümer oder Investor – wir begleiten Sie von der ersten Idee bis zur fertigen Solaranlage oder Mieterstromlösung, zuverlässig, transparent und persönlich.
                 </p>
                 <Button
                   asChild
