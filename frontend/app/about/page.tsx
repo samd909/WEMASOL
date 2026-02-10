@@ -9,26 +9,18 @@ import { Target, Leaf, Award, Users, ShieldCheck, ArrowRight } from "lucide-reac
 export const metadata: Metadata = {
   title: "Über uns – WEMASOL",
   description:
-    "Erfahren Sie mehr über WEMASOL – Ihr Ansprechpartner für Solarlösungen, Mieterstrommodelle und nachhaltige Energiekonzepte.",
-  keywords: [
-    "WEMASOL",
-    "Über uns",
-    "Solarenergie",
-    "Mieterstrom",
-    "Nachhaltige Energielösungen",
-    "Photovoltaik",
-  ],
+    "WEMASOL ist Ihr Ansprechpartner für Solaranlagen, Mieterstrom und E-Ladepunkte in Mehrfamilienhäusern. Unabhängig, transparent und koordiniert.",
 }
 
-// Notes for cards
+// Cards content
 const values = [
   {
     icon: Target,
     title: "Unsere Mission",
     desc: [
-      "Wir unterstützen Immobilieneigentümer und Investoren bei modernen Photovoltaik- und Mieterstromkonzepten.",
-      "Als zentraler Ansprechpartner verbinden wir Kunden mit qualifizierten Fachpartnern und begleiten Projekte von der Analyse über die Koordination bis zur langfristigen Betreuung.",
-      "Wirtschaftlich sinnvolle Energielösungen, transparente Abläufe und verlässliche Zusammenarbeit stehen im Mittelpunkt.",
+      "Energie neu gestalten – nachhaltig, transparent, koordiniert.",
+      "Wir unterstützen Immobilieneigentümer und Investoren bei der Umsetzung intelligenter Solaranlagen- und Mieterstromkonzepte.",
+      "Als zentraler Ansprechpartner begleiten wir Projekte von der Analyse bis zur langfristigen Betreuung.",
     ],
     delay: "delay-100",
   },
@@ -36,19 +28,19 @@ const values = [
     icon: Leaf,
     title: "Unsere Vision",
     desc: [
-      "Wir streben eine Zukunft an, in der erneuerbare Energiekonzepte für Immobilien selbstverständlich, wirtschaftlich attraktiv und leicht realisierbar sind.",
-      "WEMASOL möchte als vertrauenswürdiger Vermittler und Koordinator dazu beitragen, dass Projekte effizient geplant, professionell umgesetzt und langfristig erfolgreich betrieben werden.",
-      "Nachhaltige Energie soll zugänglich werden – durch klare Strukturen, starke Partnerschaften und transparente Zusammenarbeit.",
+      "Eine Energiewelt, in der nachhaltige Lösungen einfach umsetzbar sind.",
+      "Erneuerbare Energiekonzepte sollen für Mehrfamilienhäuser selbstverständlich, wirtschaftlich attraktiv und leicht realisierbar sein.",
+      "Wir schaffen Zugang durch klare Strukturen, starke Partnerschaften und Transparenz.",
     ],
     delay: "delay-200",
   },
   {
     icon: Award,
-    title: "Unsere Expertise",
+    title: "Unsere Rolle & Expertise",
     desc: [
-      "WEMASOL vermittelt zwischen Immobilieneigentümern, Investoren und zertifizierten Fachbetrieben für Solaranlagen und Mieterstrommodelle.",
-      "Wir beraten, koordinieren und begleiten Projekte von der Idee bis zur Umsetzung.",
-      "Die Installation und technische Ausführung erfolgt ausschließlich durch unsere Partnerbetriebe.",
+      "Unabhängige Vermittlung zwischen Eigentümern, Investoren und zertifizierten Fachbetrieben.",
+      "Koordination und Begleitung von der Idee bis zur Umsetzung.",
+      "Technische Ausführung ausschließlich durch geprüfte Partnerbetriebe.",
     ],
     delay: "delay-300",
   },
@@ -60,35 +52,49 @@ export default function AboutPage() {
       <Navigation />
       <main className="bg-slate-50">
         {/* Header */}
-        <section className="py-16 bg-slate-50">
-          <div className="container mx-auto px-4 text-center max-w-2xl">
-            <h1 className="text-4xl md:text-5xl font-extrabold text-primary mb-4">
+        <section className="py-20">
+          <div className="container mx-auto px-4 text-center max-w-2xl animate-in fade-in slide-in-from-top-6 duration-700">
+            <h1 className="text-4xl md:text-5xl font-extrabold text-primary mb-6">
               WEMASOL
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              Ihr Ansprechpartner für Solarlösungen, Mieterstrommodelle und nachhaltige Energiekonzepte.
-              Wir verbinden Immobilieneigentümer, Investoren und Fachbetriebe – von der Idee bis zur Umsetzung.
+              Ihr Ansprechpartner für Solaranlagen und E-Ladepunkte in Mehrfamilienhäusern.
+              Unabhängig. Transparent. Koordiniert.
             </p>
           </div>
         </section>
 
         {/* Cards */}
-        <section className="py-16">
+        <section className="py-20">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {values.map((item, idx) => (
                 <Card
                   key={idx}
-                  className={`p-6 border-none bg-slate-50 hover:bg-white hover:shadow-xl transition-all duration-300 animate-in fade-in fill-mode-both ${item.delay}`}
+                  className={`group p-8 rounded-3xl border-none bg-white
+                  shadow-[0_8px_30px_-12px_rgba(0,0,0,0.15)]
+                  hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.25)]
+                  hover:-translate-y-1
+                  transition-all duration-500
+                  animate-in fade-in slide-in-from-bottom-8 fill-mode-both ${item.delay}`}
                 >
-                  <div className="flex items-start gap-4">
-                    <div className="p-3 rounded-xl bg-white text-primary shadow-sm shrink-0">
+                  <div className="flex items-start gap-5">
+                    <div className="p-4 rounded-2xl bg-primary/10 text-primary shrink-0
+                      group-hover:scale-110 transition-transform duration-500">
                       <item.icon className="h-6 w-6" />
                     </div>
+
                     <div>
-                      <h3 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h3>
+                      <h3 className="text-xl font-bold text-slate-900 mb-3">
+                        {item.title}
+                      </h3>
                       {item.desc.map((paragraph, i) => (
-                        <p key={i} className="text-muted-foreground text-sm leading-relaxed mb-2">{paragraph}</p>
+                        <p
+                          key={i}
+                          className="text-muted-foreground text-sm leading-relaxed mb-2"
+                        >
+                          {paragraph}
+                        </p>
                       ))}
                     </div>
                   </div>
@@ -99,35 +105,52 @@ export default function AboutPage() {
         </section>
 
         {/* Stats */}
-        <section className="py-16">
+        <section className="py-20">
           <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { label: "Zufriedene Projekte", value: "100+", icon: ShieldCheck },
-              { label: "Zufriedene Kunden", value: "98%", icon: Users },
-              { label: "Jahre Erfahrung", value: "10+", icon: Award },
+              { label: "Spezialisierung", value: "MFH", icon: ShieldCheck },
+              { label: "Unabhängigkeit", value: "100%", icon: Users },
+              { label: "Partnernetzwerk", value: "Geprüft", icon: Award },
             ].map((stat, i) => (
               <div
                 key={i}
-                className="text-center p-6 rounded-xl border border-slate-100 bg-white hover:border-primary/20 transition-colors"
+                className="group text-center p-8 rounded-3xl bg-white
+                shadow-[0_6px_20px_-8px_rgba(0,0,0,0.15)]
+                hover:shadow-[0_14px_30px_-8px_rgba(0,0,0,0.25)]
+                transition-all duration-500 hover:-translate-y-1"
               >
-                <stat.icon className="mx-auto mb-2 h-8 w-8 text-primary" />
-                <div className="text-3xl font-bold text-slate-900">{stat.value}</div>
-                <p className="text-sm uppercase font-semibold text-primary">{stat.label}</p>
+                <stat.icon className="mx-auto mb-3 h-8 w-8 text-primary group-hover:scale-110 transition-transform" />
+                <div className="text-3xl font-bold text-slate-900 mb-1">
+                  {stat.value}
+                </div>
+                <p className="text-sm uppercase font-semibold text-primary tracking-wide">
+                  {stat.label}
+                </p>
               </div>
             ))}
           </div>
         </section>
 
         {/* CTA */}
-        <section className="py-16 text-center">
-          <div className="max-w-xl mx-auto bg-primary/10 rounded-3xl p-12">
-            <Users className="h-12 w-12 text-primary mx-auto mb-4" />
-            <h2 className="text-2xl md:text-3xl font-bold mb-4 text-slate-900">Bereit für Ihr Energieprojekt?</h2>
-            <p className="text-muted-foreground mb-6">
-              Ob Eigentümer oder Investor – wir begleiten Sie von der ersten Idee bis zur fertigen Solaranlage oder Mieterstromlösung, zuverlässig, transparent und persönlich.
+        <section className="py-24 text-center">
+          <div className="max-w-xl mx-auto bg-primary/10 rounded-[2.5rem] p-14
+            shadow-[0_20px_50px_-20px_rgba(0,0,0,0.25)]
+            animate-in fade-in slide-in-from-bottom-6 duration-700">
+            <Users className="h-12 w-12 text-primary mx-auto mb-6" />
+            <h2 className="text-2xl md:text-3xl font-bold mb-4 text-slate-900">
+              Projekt besprechen
+            </h2>
+            <p className="text-muted-foreground mb-8">
+              Wir prüfen Ihr Vorhaben, entwickeln ein wirtschaftliches Energiekonzept
+              und begleiten Sie strukturiert bis zur Umsetzung.
             </p>
-            <Button asChild size="lg" className="rounded-full bg-primary hover:bg-primary/90 px-8 py-4">
-              <Link href="/contact" className="flex items-center gap-2 justify-center">
+            <Button
+              asChild
+              size="lg"
+              className="rounded-full px-10 py-6 text-lg font-semibold
+              shadow-lg hover:shadow-xl hover:scale-105 transition-all"
+            >
+              <Link href="/contact" className="flex items-center gap-2">
                 Kontakt aufnehmen
                 <ArrowRight className="h-4 w-4" />
               </Link>

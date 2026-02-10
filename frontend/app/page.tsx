@@ -3,7 +3,7 @@ import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Link from "next/link";
-import { Sun, Leaf, Zap, Shield, TrendingUp, Users, ArrowRight } from "lucide-react";
+import { Sun, Leaf, Zap, Shield, TrendingUp, Users, ArrowRight, Building, Layers, Handshake } from "lucide-react";
 import { ProductList } from "@/components/product-list";
 
 export default function HomePage() {
@@ -13,39 +13,43 @@ export default function HomePage() {
 
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="relative overflow-hidden py-24 md:py-32 bg-white">
-          <div className="container relative mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center animate-in fade-in slide-in-from-top-8 duration-1000">
-              <span className="inline-block px-4 py-1.5 mb-6 text-sm font-medium tracking-wider uppercase text-primary bg-primary/10 rounded-full">
-                Professionelle Solarlösungen
-              </span>
-              <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900">
-                Grüne Energie für eine <br />
-                <span className="text-primary">nachhaltige Zukunft</span>
-              </h1>
-              <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-10">
-                Wemasol ist Ihr Partner für erneuerbare Energien. Wir bieten innovative Solarlösungen und professionelle Beratung für eine grünere Welt.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <Button asChild size="lg" className="rounded-full px-10 py-6 text-lg font-semibold hover:scale-105 transition-all shadow-md">
-                  <Link href="/contact">Kostenlose Beratung</Link>
-                </Button>
-                <Button asChild size="lg" variant="ghost" className="rounded-full px-10 py-6 text-lg font-semibold group hover:bg-slate-50">
-                  <Link href="/services" className="flex items-center gap-2">
-                    Unsere Leistungen <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
+      <section className="relative overflow-hidden py-24 md:py-32 bg-white">
+      <div className="container relative mx-auto px-4">
+        <div className="max-w-4xl mx-auto text-center animate-in fade-in slide-in-from-top-8 duration-1000">
 
+
+          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 text-black">
+            Mehr wirtschaftlicher Nutzen <br />
+            aus Ihrem Wohnungsbestand
+          </h1>
+
+          <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-10">
+            Wir verbinden Eigentümer von Mehrfamilienhäusern mit erfahrenen Fachbetrieben
+            für Solaranlagen mit Mieterstrom oder gemeinsamer Gebäudeversorgung sowie
+            E-Ladepunkte für Parkplätze.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Button
+              asChild
+              size="lg"
+              className="rounded-full px-10 py-6 text-lg font-semibold hover:scale-105 transition-all shadow-md"
+            >
+              <Link href="/contact">➡ Jetzt Projekt prüfen lassen</Link>
+            </Button>
+          </div>
+        </div>
+      </div>
+      </section>
+
+
+{/* Features Section */}
 {/* Features Section */}
 <section className="py-24 border-t border-slate-50 bg-white">
   <div className="container mx-auto px-4">
     <div className="text-center mb-16 animate-in fade-in duration-700">
       <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight">
-        Warum WEMASOL?
+        Wer ist WEMASOL & was wir tun
       </h2>
       <div className="h-1.5 w-16 bg-primary mx-auto rounded-full" />
     </div>
@@ -54,49 +58,65 @@ export default function HomePage() {
       {[
         {
           icon: Users,
-          title: "Zuverlässiger Ansprechpartner",
-          text: "WEMASOL ist Ihr zuverlässiger Ansprechpartner für Solaranlagen und Mieterstrommodelle.",
+          title: "Wer wir sind",
+          text: "Unabhängiges Vermittlungsunternehmen mit Fokus auf Mieterstrom für Mehrfamilienhäuser und E-Ladepunkte. Wir stehen für Transparenz, Neutralität und Qualität.",
           delay: "delay-100",
         },
         {
-          icon: Zap,
-          title: "Ganzheitliche Projektbegleitung",
-          text: "Von der Erstberatung und Wirtschaftlichkeitsanalyse über die Projektkoordination bis zur langfristigen Betreuung.",
+          icon: Handshake,
+          title: "Was wir machen",
+          text: "WEMASOL ist Ihr unabhängiger Vermittlungspartner für nachhaltige Energielösungen. Wir bringen Eigentümer mit geprüften Fachbetrieben zusammen – einfach, strukturiert und unverbindlich.",
           delay: "delay-200",
         },
         {
-          icon: Shield,
-          title: "Starkes Partnernetzwerk",
-          text: "Umsetzung ausschließlich durch geprüfte, eigenständig tätige Elektro- und Installationsfachbetriebe.",
+          icon: Sun,
+          title: "Solaranlagen für Mehrfamilienhäuser",
+          text: "Mieterstrom oder gemeinschaftliche Gebäudeversorgung – optimal abgestimmt auf Mehrfamilienhäuser und wirtschaftlich sinnvoll umgesetzt.",
           delay: "delay-300",
         },
         {
-          icon: Leaf,
-          title: "Transparente Abläufe",
-          text: "Klare Zuständigkeiten, strukturierte Prozesse und nachvollziehbare Entscheidungen.",
+          icon: Zap,
+          title: "E-Ladepunkte",
+          text: "Ladelösungen für Tiefgaragen und Außenstellplätze inklusive passender Konzepte für Mehrfamilienhäuser.",
           delay: "delay-400",
         },
         {
           icon: TrendingUp,
-          title: "Nachhaltig & wirtschaftlich",
-          text: "Zukunftsfähige Solarlösungen und Mieterstromkonzepte mit Fokus auf Effizienz, Planungssicherheit und Wertsteigerung von Immobilien.",
+          title: "Intelligentes Energiemanagement",
+          text: "Automatische Steuerung des Solarstroms für maximalen Eigenverbrauch, geringere Energiekosten und transparente Übersicht per App – ganzjährig optimiert.",
           delay: "delay-500",
         },
         {
-          icon: Sun,
-          title: "Unterstützung für Eigentümer & Investoren",
-          text: "Wir unterstützen Immobilieneigentümer und Investoren bei der Planung, Bewertung und Umsetzung nachhaltiger Energiekonzepte.",
+          icon: Building,
+          title: "Dachflächenpachtung",
+          text: "Risikofreie Verpachtung von Dachflächen für Solaranlagen: attraktive Pachteinnahmen, keine Investitionskosten und optionale Dachsanierung durch den Investor.",
           delay: "delay-600",
+        },
+        {
+          icon: Shield,
+          title: "Für wen wir arbeiten",
+          text: "Eigentümer von Mehrfamilienhäusern, Wohnungsunternehmen, Hausverwaltungen und Investoren. Keine Einfamilienhäuser, kein Direktverkauf, keine Eigeninstallation.",
+          delay: "delay-700",
+        },
+        {
+          icon: Layers,
+          title: "So einfach funktioniert es",
+          text: "Anfrage stellen → Projektprüfung → Planung mit passenden Fachbetrieben → Umsetzung direkt mit dem Installateur.",
+          delay: "delay-800",
         },
       ].map((feature, index) => (
         <Card
           key={index}
-          className={`group p-8 border-none bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 animate-in fade-in slide-in-from-bottom-8 fill-mode-both ${feature.delay}`}
+          className={`group p-8 border-none bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]
+          hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500
+          animate-in fade-in slide-in-from-bottom-8 fill-mode-both ${feature.delay}`}
         >
           <div className="p-3 rounded-2xl bg-primary/5 group-hover:bg-primary/10 transition-colors inline-block mb-6">
             <feature.icon className="h-8 w-8 text-primary transition-transform duration-500 group-hover:scale-110" />
           </div>
-          <h3 className="text-xl font-bold text-slate-900 mb-3">{feature.title}</h3>
+          <h3 className="text-xl font-bold text-slate-900 mb-3">
+            {feature.title}
+          </h3>
           <p className="text-muted-foreground leading-relaxed text-sm">
             {feature.text}
           </p>
@@ -106,8 +126,9 @@ export default function HomePage() {
   </div>
 </section>
 
+
         {/* Products Section */}
-        <section className="py-24 bg-white border-y border-slate-50">
+        {/* <section className="py-24 bg-white border-y border-slate-50">
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row items-end justify-between mb-12 gap-4">
               <div className="animate-in fade-in slide-in-from-left-6 duration-700">
@@ -128,7 +149,7 @@ export default function HomePage() {
               <ProductList />
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* CTA Section */}
         <section className="py-24 bg-white">

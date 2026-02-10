@@ -3,9 +3,10 @@ import { Sun, Mail, Phone, MapPin } from "lucide-react"
 
 export function Footer() {
   return (
-    <footer className="bg-muted/30 border-t border-border subtle-gradient-bg">
+    <footer className="bg-transparent border-t border-border">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+          {/* Brand */}
           <div>
             <Link href="/" className="flex items-center gap-2 font-bold text-xl mb-4">
               <Sun className="h-6 w-6 text-primary" />
@@ -16,42 +17,31 @@ export function Footer() {
             </p>
           </div>
 
+          {/* Navigation */}
           <div>
             <h3 className="font-semibold mb-4">Navigation</h3>
             <ul className="space-y-2">
-              <li>
-                <Link href="/" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  Startseite
-                </Link>
-              </li>
-              <li>
-                <Link href="/services" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  Leistungen
-                </Link>
-              </li>
-              <li>
-                <Link href="/ev" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  E-Mobilität
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  Über uns
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  Kontakt
-                </Link>
-              </li>
-              <li>
-                <Link href="/products" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  Produkte
-                </Link>
-              </li>
+              {[
+                { href: "/", label: "Startseite" },
+                { href: "/services", label: "Leistungen" },
+                { href: "/ev", label: "E-Mobilität" },
+                { href: "/about", label: "Über uns" },
+                { href: "/products", label: "Produkte" },
+                { href: "/contact", label: "Kontakt" },
+              ].map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
+          {/* Leistungen */}
           <div>
             <h3 className="font-semibold mb-4">Leistungen</h3>
             <ul className="space-y-2">
@@ -62,6 +52,30 @@ export function Footer() {
             </ul>
           </div>
 
+          {/* Rechtliches */}
+          <div>
+            <h3 className="font-semibold mb-4">Rechtliches</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link
+                  href="/impressum"
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  Impressum
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/datenschutz"
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  Datenschutz
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Kontakt */}
           <div>
             <h3 className="font-semibold mb-4">Kontakt</h3>
             <ul className="space-y-3">
@@ -85,6 +99,7 @@ export function Footer() {
           </div>
         </div>
 
+        {/* Bottom bar */}
         <div className="mt-12 pt-8 border-t border-border text-center text-sm text-muted-foreground">
           <p>&copy; {new Date().getFullYear()} Wemasol. Alle Rechte vorbehalten.</p>
         </div>
