@@ -44,8 +44,7 @@ export default function HomePage() {
 
 
 {/* Features Section */}
-{/* Features Section */}
-<section className="py-24 border-t border-slate-50 bg-white">
+<section className="py-32 border-t border-slate-50 bg-white">
   <div className="container mx-auto px-4">
     <div className="text-center mb-16 animate-in fade-in duration-700">
       <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight">
