@@ -28,7 +28,7 @@ export default function ServicePage() {
     if (!slug) return
     const fetchService = async () => {
       //const res = await fetch(`http://127.0.0.1:8000/api/services/${slug}/`)
-      const res = await fetch(`https://api.wemasol.de/api/services/${slug}/`)
+      const res = await fetch(`https://api.wemasol.sdict.nl/api/services/${slug}/`)
 
       if (res.ok) {
         const data = await res.json()
