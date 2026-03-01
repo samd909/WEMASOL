@@ -1,24 +1,31 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Menu, X, Sun } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
+interface Service {
+  id: number
+  name: string
+  slug: string
+}
+
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
+  const [services, setServices] = useState<Service[]>([])
 
-  const navItems = [
-    { href: "/", label: "Startseite" },
-    { href: "/services", label: "Leistungen" },
-    { href: "/ev", label: "E-Mobilität" },
-    { href: "/about", label: "Über uns" },
-    // { href: "/products", label: "Produkte" },
-    { href: "/contact", label: "Kontakt" },
-  ]
+  // Fetch services once
+  useEffect(() => {
+    fetch("https://api.wemasol.de/api/services/")
+    //fetch("http://127.0.0.1:8000/api/services/")
+      .then((res) => res.json())
+      .then(setServices)
+      .catch(console.error)
+  }, [])
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-transparent backdrop-blur supports-[backdrop-filter]:bg-background/60 ">
+    <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-transparent backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center gap-2 font-bold text-xl">
@@ -27,16 +34,51 @@ export function Navigation() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-6">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
-              >
-                {item.label}
-              </Link>
-            ))}
+          <div className="hidden md:flex items-center gap-6 relative">
+            <Link
+              href="/"
+              className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+            >
+              Startseite
+            </Link>
+
+            {/* Services Dropdown */}
+            <div className="group relative">
+              <button className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">
+                Leistungen
+              </button>
+              <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-slate-200 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-300 z-50">
+                {services.map((service) => (
+                  <Link
+                    key={service.id}
+                    href={`/services/${service.slug}`}
+                    className="block px-4 py-2 text-sm text-foreground/90 hover:bg-primary/10 hover:text-primary transition-colors"
+                  >
+                    {service.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <Link
+              href="/ev"
+              className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+            >
+              E-Mobilität
+            </Link>
+            <Link
+              href="/about"
+              className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+            >
+              Über uns
+            </Link>
+            <Link
+              href="/contact"
+              className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+            >
+              Kontakt
+            </Link>
+
             <Button asChild className="bg-primary hover:bg-primary/90">
               <Link href="/contact">Kostenlose Beratung</Link>
             </Button>
@@ -55,20 +97,29 @@ export function Navigation() {
         {/* Mobile Navigation */}
         {isOpen && (
           <div className="md:hidden py-4 space-y-4">
-            {navItems.map((item) => (
+            <Link href="/" className="block py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors">
+              Startseite
+            </Link>
+            {services.map((service) => (
               <Link
-                key={item.href}
-                href={item.href}
+                key={service.id}
+                href={`/services/${service.slug}`}
                 className="block py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
-                onClick={() => setIsOpen(false)}
               >
-                {item.label}
+                {service.name}
               </Link>
             ))}
+            <Link href="/ev" className="block py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors">
+              E-Mobilität
+            </Link>
+            <Link href="/about" className="block py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors">
+              Über uns
+            </Link>
+            <Link href="/contact" className="block py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors">
+              Kontakt
+            </Link>
             <Button asChild className="w-full bg-primary hover:bg-primary/90">
-              <Link href="/contact" onClick={() => setIsOpen(false)}>
-                Kostenlose Beratung
-              </Link>
+              <Link href="/contact">Kostenlose Beratung</Link>
             </Button>
           </div>
         )}

@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-+998@zw$ahx(3ywl595g(*+oeqsmxkmoqtta9%ve4iv-pwx0@h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['api.wemasol.sdict.nl']
+ALLOWED_HOSTS = ['api.wemasol.sdict.nl', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -39,11 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'products',
+    'services',
     'corsheaders',
 ]
 
 CORS_ALLOWED_ORIGINS = [
     "https://wemasol.sdict.nl",
+    "http://localhost:3000",
+    'http://127.0.0.1:3000',
 ]
 
 MEDIA_URL = '/media/'

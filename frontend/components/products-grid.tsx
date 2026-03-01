@@ -32,7 +32,9 @@ export function ProductsGrid() {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const res = await fetch('https://api.wemasol.sdict.nl/api/products/')
+        //const res = await fetch('https://api.wemasol.sdict.nl/api/products/')
+        const res = await fetch('http://127.0.0.1:8000/api/products/')
+
         const data = await res.json()
         setProducts(data.reverse())
       } catch (err) {

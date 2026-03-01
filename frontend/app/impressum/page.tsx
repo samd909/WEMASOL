@@ -12,19 +12,18 @@ export default function ImpressumPage() {
   return (
     <>
       <Navigation />
-      <main className="bg-transparent  py-16">
+      <main className="bg-transparent py-16">
         <div className="container mx-auto px-4 max-w-3xl">
           <Card className="p-8">
             <h1 className="text-3xl font-bold mb-6">Impressum</h1>
 
-            <section className="space-y-4 text-sm text-muted-foreground">
+            <section className="space-y-6 text-sm text-muted-foreground">
               <div>
                 <h2 className="font-semibold text-slate-900">Angaben gemäß § 5 TMG</h2>
                 <p>
-                  WEMASOL<br />
-                  Test Test<br />
-                  Test 1<br />
-                  12345 Test<br />
+                  WEMASOL – Rafael Barrios<br />
+                  Grunewaldstraße 9<br />
+                  40789 Monheim am Rhein<br />
                   Deutschland
                 </p>
               </div>
@@ -32,7 +31,7 @@ export default function ImpressumPage() {
               <div>
                 <h2 className="font-semibold text-slate-900">Kontakt</h2>
                 <p>
-                  Telefon: +49 (0) 123 456789<br />
+                  Rufnummer: 01522 4718246<br />
                   E-Mail: info@wemasol.de
                 </p>
               </div>
@@ -41,32 +40,33 @@ export default function ImpressumPage() {
                 <h2 className="font-semibold text-slate-900">Umsatzsteuer-ID</h2>
                 <p>
                   Umsatzsteuer-Identifikationsnummer gemäß §27 a Umsatzsteuergesetz:<br />
-                  DE123456789
+                  DE369647022
                 </p>
               </div>
 
               <div>
-                <h2 className="font-semibold text-slate-900">Haftung für Inhalte</h2>
+                <h2 className="font-semibold text-slate-900">Verantwortlich für den Inhalt nach §55 Abs. 2 RStV</h2>
+                <p>Rafael Barrios</p>
+              </div>
+
+              <div>
+                <h2 className="font-semibold text-slate-900">Hinweis zur Datenverarbeitung und Weitergabe</h2>
                 <p>
-                  Als Diensteanbieter sind wir gemäß §7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach
-                  den allgemeinen Gesetzen verantwortlich. Nach §§8 bis 10 TMG sind wir jedoch nicht
-                  verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen.
+                  Die auf dieser Website eingegebenen Daten im Kontaktformular werden ausschließlich zur Bearbeitung Ihrer Anfrage verwendet und können im weiteren Verlauf an geeignete Installations- oder Fachunternehmen weitergegeben werden, um die gewünschte Dienstleistung (z. B. Installation von Solaranlagen, Energiespeichern oder Ladepunkten) zu realisieren. Weitere Informationen zur Datenverarbeitung finden Sie in unserer <a href="/datenschutz" className="underline">Datenschutzerklärung</a>.
                 </p>
               </div>
 
               <div>
-                <h2 className="font-semibold text-slate-900">Haftung für Links</h2>
+                <h2 className="font-semibold text-slate-900">Verbraucherstreitbeilegung | Universalschlichtungsstelle</h2>
                 <p>
-                  Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen
-                  Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen.
+                  Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
                 </p>
               </div>
 
               <div>
-                <h2 className="font-semibold text-slate-900">Urheberrecht</h2>
+                <h2 className="font-semibold text-slate-900">Haftungsausschluss</h2>
                 <p>
-                  Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen
-                  dem deutschen Urheberrecht.
+                  Die Inhalte unserer Webseiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Für den Inhalt verlinkter externer Webseiten sind ausschließlich deren Betreiber verantwortlich. Sofern auf der Website verwendete Bilder nicht von WEMASOL erstellt wurden, stammen diese von lizenzierten Quellen und die Urheberrechte werden beachtet.
                 </p>
               </div>
             </section>
