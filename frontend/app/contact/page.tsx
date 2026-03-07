@@ -37,14 +37,14 @@ export default function ContactPage() {
     {
       icon: Phone,
       label: "Telefon",
-      value: "+49 (0) XXX XXXXXXX",
+      value: "+49 1522 4718246",
       href: "tel:+49",
       delay: "delay-200",
     },
     {
       icon: MapPin,
       label: "Standort",
-      value: "Deutschland",
+      value: "Grunewaldstraße 9, 40789 Monheim am Rhein",
       href: "#",
       delay: "delay-300",
     },
@@ -100,7 +100,7 @@ export default function ContactPage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
               {/* Form */}
-              <div className="lg:col-span-7 animate-in fade-in slide-in-from-left-8 duration-1000 fill-mode-both delay-300">
+              {/* <div className="lg:col-span-7 animate-in fade-in slide-in-from-left-8 duration-1000 fill-mode-both delay-300">
                 <div className="bg-white rounded-3xl p-1 shadow-sm border border-slate-100">
                   <div className="p-8 md:p-10">
                     <div className="flex items-center gap-3 mb-8">
@@ -112,7 +112,7 @@ export default function ContactPage() {
                     <ContactForm />
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               {/* Info Column */}
               <div className="lg:col-span-5 space-y-8 animate-in fade-in slide-in-from-right-8 duration-1000 fill-mode-both delay-400">
