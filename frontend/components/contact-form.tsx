@@ -136,7 +136,7 @@ export function ContactForm() {
       formData.append(key, value)
     })
 
-    const res = await fetch("http://localhost:8000/api/leads/create/", {
+    const res = await fetch("https://api.wemasol.sdict.nl/api/leads/create/", {
       method: "POST",
       body: formData,
     })
