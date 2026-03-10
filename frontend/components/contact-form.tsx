@@ -14,179 +14,236 @@ import {
   SelectItem,
   SelectValue,
 } from "@/components/ui/select"
-import { useToast } from "@/hooks/use-toast"
 
-// 🔥 Your dynamic questions array
-const QUESTIONS = [
+const SECTIONS = [
   {
-    id: "name",
-    question: "What is your name?",
-    type: "text",
-    required: true,
+    title: "Kontaktinformationen",
+    fields: [
+      { id: "salutation", label: "Anrede", type: "select", options: ["Herr", "Frau"] },
+      { id: "firstName", label: "Vorname", type: "text" },
+      { id: "lastName", label: "Nachname", type: "text" },
+      { id: "company", label: "Firmenname", type: "text" },
+      { id: "phone", label: "Telefonnummer", type: "text" },
+      { id: "email", label: "E-Mail", type: "text" },
+    ],
   },
   {
-    id: "email",
-    question: "What is your email?",
-    type: "text",
-    required: true,
+    title: "Adresse",
+    fields: [
+      { id: "street", label: "Straße", type: "text" },
+      { id: "houseNumber", label: "Hausnummer", type: "text" },
+      { id: "zip", label: "PLZ", type: "text" },
+      { id: "city", label: "Ort / Stadt", type: "text" },
+    ],
   },
   {
-    id: "systemType",
-    question: "What solar system are you interested in?",
-    type: "single",
-    required: true,
-    options: ["Off-grid", "On-grid", "Hybrid", "Not sure"],
+    title: "Energieverbrauch",
+    fields: [
+      { id: "houseConsumption", label: "Stromverbrauch Haushalt (kWh)", type: "number" },
+      { id: "heatingConsumption", label: "Stromverbrauch Heizung (kWh)", type: "number" },
+      { id: "heatingInfo", label: "Zusätzliche Informationen zur Heizung", type: "textarea" },
+      { id: "objectDetails", label: "Details zum Objekt", type: "textarea" },
+    ],
   },
   {
-    id: "roofType",
-    question: "What type of roof do you have?",
-    type: "multi",
-    required: false,
-    options: ["Flat roof", "Pitched roof", "Metal roof", "Tile roof"],
+    title: "Anlagenpräferenzen",
+    fields: [
+      {
+        id: "priority",
+        label: "Das ist mir wichtig",
+        type: "select",
+        options: [
+          "gute Wirtschaftlichkeit",
+          "maximale Leistung",
+          "gute Optik der Anlage auf dem Dach",
+          "etwas anderes",
+        ],
+      },
+    ],
   },
   {
-    id: "comments",
-    question: "Any additional info?",
-    type: "textarea",
-    required: false,
+    title: "Zusatzoptionen",
+    fields: [
+      {
+        id: "extraOptions",
+        label: "Diese Zusatzoptionen sind interessant",
+        type: "multi",
+        options: [
+          "Stromspeicher",
+          "Wallbox",
+          "Notstromversorgung",
+          "Warmwassererzeugung",
+          "Einbindung einer vorhandenen Anlage",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Bilder hochladen",
+    fields: [
+      { id: "required_file", label: "Foto Dachfläche", type: "file", required: true },
+      { id: "optional_file", label: "Zusätzliches Foto", type: "file" },
+    ],
   },
 ]
 
 export function ContactForm() {
-  const { toast } = useToast()
+  const [step, setStep] = useState(0)
+  const [form, setForm] = useState<any>({
+    extraOptions: [],
+  })
 
-  const [step, setStep] = useState(0) // current question index
-  const [answers, setAnswers] = useState<Record<string, any>>({})
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const section = SECTIONS[step]
 
-  const current = QUESTIONS[step]
-
-  const updateAnswer = (value: any) => {
-    setAnswers((prev) => ({ ...prev, [current.id]: value }))
+  const update = (id: string, value: any) => {
+    setForm((prev: any) => ({ ...prev, [id]: value }))
   }
 
-  const toggleMulti = (option: string) => {
-    const currentVals = answers[current.id] || []
-    if (currentVals.includes(option)) {
-      updateAnswer(currentVals.filter((o: string) => o !== option))
+  const toggleMulti = (id: string, option: string) => {
+    const current = form[id] || []
+    if (current.includes(option)) {
+      update(id, current.filter((o: string) => o !== option))
     } else {
-      updateAnswer([...currentVals, option])
+      update(id, [...current, option])
     }
   }
 
-  const goNext = () => {
-    if (current.required && !answers[current.id]) return
-    setStep((s) => s + 1)
-  }
-
-  const goBack = () => setStep((s) => s - 1)
-
   const handleSubmit = async () => {
-    setIsSubmitting(true)
+  const formData = new FormData()
 
-    console.log("Final submitted answers:", answers)
+    Object.entries(form).forEach(([key, value]: any) => {
+      if (value === undefined || value === null || value === "") return
 
-    await new Promise((res) => setTimeout(res, 1500))
+      // Send numbers as strings
+      if (key === "houseConsumption" || key === "heatingConsumption") {
+        formData.append(key, String(value))
+        return
+      }
 
-    toast({
-      title: "Submission complete",
-      description: "We received your answers!",
+      // Send multi-select properly
+      if (Array.isArray(value)) {
+        value.forEach((v: any) => formData.append(`${key}[]`, v))
+        return
+      }
+
+      // File upload
+      if (value instanceof File) {
+        formData.append(key, value)
+        return
+      }
+
+      // Regular fields
+      formData.append(key, value)
     })
 
-    setIsSubmitting(false)
+    const res = await fetch("http://localhost:8000/api/leads/create/", {
+      method: "POST",
+      body: formData,
+    })
+
+    if (!res.ok) {
+      const err = await res.json()
+      console.error("Backend error:", err)
+      alert("Error submitting form")
+      return
+    }
+
+    alert("Form submitted successfully!")
+    setForm({ extraOptions: [] })
+    setStep(0)
   }
 
-  const isLast = step === QUESTIONS.length - 1
+  const isLast = step === SECTIONS.length - 1
 
   return (
-    <Card className="p-6 md:p-8 animate-in fade-in slide-in-from-left-4 duration-700">
-      <h2 className="text-2xl font-bold mb-6">Questions ({step + 1}/{QUESTIONS.length})</h2>
+    <Card className="p-6 md:p-8">
+      <h2 className="text-2xl font-bold mb-6">
+        {section.title} ({step + 1}/{SECTIONS.length})
+      </h2>
 
-      <div className="space-y-6">
-        <div className="space-y-2">
-          <Label className="text-lg font-medium">
-            {current.question} {current.required && "*"}
-          </Label>
+      <div className="grid md:grid-cols-2 gap-6">
+        {section.fields.map((field: any) => (
+          <div key={field.id} className="space-y-2">
+            <Label>{field.label}</Label>
 
-          {/* TEXT INPUT */}
-          {current.type === "text" && (
-            <Input
-              value={answers[current.id] || ""}
-              onChange={(e) => updateAnswer(e.target.value)}
-              required={current.required}
-              className="transition-all duration-200 focus:scale-[1.02]"
-            />
-          )}
+            {field.type === "text" && (
+              <Input
+                value={form[field.id] || ""}
+                onChange={(e) => update(field.id, e.target.value)}
+              />
+            )}
 
-          {/* TEXTAREA */}
-          {current.type === "textarea" && (
-            <Textarea
-              rows={5}
-              value={answers[current.id] || ""}
-              onChange={(e) => updateAnswer(e.target.value)}
-              className="transition-all duration-200 focus:scale-[1.02]"
-            />
-          )}
+            {field.type === "number" && (
+              <Input
+                type="number"
+                value={form[field.id] || ""}
+                onChange={(e) => update(field.id, e.target.value)}
+              />
+            )}
 
-          {/* SINGLE SELECT */}
-          {current.type === "single" && (
-            <Select
-              value={answers[current.id] || ""}
-              onValueChange={(val) => updateAnswer(val)}
-            >
-              <SelectTrigger className="transition-all duration-200 focus:scale-[1.02]">
-                <SelectValue placeholder="Select..." />
-              </SelectTrigger>
-              <SelectContent>
-                {current.options?.map((opt) => (
-                  <SelectItem key={opt} value={opt}>
-                    {opt}
-                  </SelectItem>
+            {field.type === "textarea" && (
+              <Textarea
+                value={form[field.id] || ""}
+                onChange={(e) => update(field.id, e.target.value)}
+              />
+            )}
+
+            {field.type === "select" && (
+              <Select value={form[field.id] || ""} onValueChange={(val) => update(field.id, val)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Bitte auswählen" />
+                </SelectTrigger>
+                <SelectContent>
+                  {field.options?.map((opt: string) => (
+                    <SelectItem key={opt} value={opt}>
+                      {opt}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+
+            {field.type === "multi" && (
+              <div className="space-y-2">
+                {field.options?.map((opt: string) => (
+                  <div key={opt} className="flex items-center gap-2">
+                    <Checkbox
+                      checked={form[field.id]?.includes(opt)}
+                      onCheckedChange={() => toggleMulti(field.id, opt)}
+                    />
+                    <Label>{opt}</Label>
+                  </div>
                 ))}
-              </SelectContent>
-            </Select>
-          )}
+              </div>
+            )}
 
-          {/* MULTI SELECT */}
-          {current.type === "multi" && (
-            <div className="space-y-2">
-              {current.options?.map((opt) => (
-                <div key={opt} className="flex items-center gap-2">
-                  <Checkbox
-                    checked={answers[current.id]?.includes(opt)}
-                    onCheckedChange={() => toggleMulti(opt)}
-                  />
-                  <Label className="cursor-pointer">{opt}</Label>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+            {field.type === "file" && (
+              <Input
+                type="file"
+                onChange={(e) => {
+                  const file = e.target.files?.[0]
+                  if (file) update(field.id, file)
+                }}
+              />
+            )}
+          </div>
+        ))}
+      </div>
 
-        {/* NAVIGATION BUTTONS */}
-        <div className="flex justify-between pt-4">
-          {step > 0 ? (
-            <Button variant="outline" onClick={goBack}>
-              Back
-            </Button>
-          ) : (
-            <div />
-          )}
+      <div className="flex justify-between pt-8">
+        {step > 0 ? (
+          <Button variant="outline" onClick={() => setStep(step - 1)}>
+            Back
+          </Button>
+        ) : (
+          <div />
+        )}
 
-          {!isLast ? (
-            <Button onClick={goNext} disabled={current.required && !answers[current.id]}>
-              Next
-            </Button>
-          ) : (
-            <Button
-              onClick={handleSubmit}
-              disabled={isSubmitting}
-              className="bg-primary hover:bg-primary/90"
-            >
-              {isSubmitting ? "Submitting..." : "Submit"}
-            </Button>
-          )}
-        </div>
+        {!isLast ? (
+          <Button onClick={() => setStep(step + 1)}>Next</Button>
+        ) : (
+          <Button onClick={handleSubmit}>Submit</Button>
+        )}
       </div>
     </Card>
   )
