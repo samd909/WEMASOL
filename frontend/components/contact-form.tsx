@@ -19,30 +19,29 @@ const SECTIONS = [
   {
     title: "Kontaktinformationen",
     fields: [
-      { id: "salutation", label: "Anrede", type: "select", options: ["Herr", "Frau"] },
-      { id: "firstName", label: "Vorname", type: "text" },
-      { id: "lastName", label: "Nachname", type: "text" },
-      { id: "company", label: "Firmenname", type: "text" },
-      { id: "phone", label: "Telefonnummer", type: "text" },
-      { id: "email", label: "E-Mail", type: "text" },
+      { id: "salutation", label: "Anrede", type: "select", options: ["Herr", "Frau"], required: true },
+      { id: "firstName", label: "Vorname", type: "text", required: true },
+      { id: "lastName", label: "Nachname", type: "text", required: true },
+      { id: "company", label: "Firmenname", type: "text", required: false },
+      { id: "phone", label: "Telefonnummer", type: "text", required: true },
+      { id: "email", label: "E-Mail", type: "text", required: true },
     ],
   },
   {
     title: "Adresse",
     fields: [
-      { id: "street", label: "Straße", type: "text" },
-      { id: "houseNumber", label: "Hausnummer", type: "text" },
-      { id: "zip", label: "PLZ", type: "text" },
-      { id: "city", label: "Ort / Stadt", type: "text" },
+      { id: "street", label: "Straße", type: "text", required: true },
+      { id: "houseNumber", label: "Hausnummer", type: "text", required: true },
+      { id: "zip", label: "PLZ", type: "text", required: true },
+      { id: "city", label: "Ort / Stadt", type: "text", required: true },
     ],
   },
   {
     title: "Energieverbrauch",
     fields: [
-      { id: "houseConsumption", label: "Stromverbrauch Haushalt (kWh)", type: "number" },
-      { id: "heatingConsumption", label: "Stromverbrauch Heizung (kWh)", type: "number" },
-      { id: "heatingInfo", label: "Zusätzliche Informationen zur Heizung", type: "textarea" },
-      { id: "objectDetails", label: "Details zum Objekt", type: "textarea" },
+      { id: "houseConsumption", label: "Stromverbrauch Haushalt (kWh)", type: "number", required: true },
+      { id: "heatingInfo", label: "Zusätzliche Informationen zur Heizung", type: "textarea", required: false },
+      { id: "objectDetails", label: "Details zum Objekt", type: "textarea", required: false },
     ],
   },
   {
@@ -58,6 +57,7 @@ const SECTIONS = [
           "gute Optik der Anlage auf dem Dach",
           "etwas anderes",
         ],
+        required: true,
       },
     ],
   },
@@ -82,17 +82,14 @@ const SECTIONS = [
     title: "Bilder hochladen",
     fields: [
       { id: "required_file", label: "Foto Dachfläche", type: "file", required: true },
-      { id: "optional_file", label: "Zusätzliches Foto", type: "file" },
+      { id: "optional_file", label: "Zusätzliches Foto", type: "file", required: false },
     ],
   },
 ]
 
 export function ContactForm() {
   const [step, setStep] = useState(0)
-  const [form, setForm] = useState<any>({
-    extraOptions: [],
-  })
-
+  const [form, setForm] = useState<any>({ extraOptions: [] })
   const section = SECTIONS[step]
 
   const update = (id: string, value: any) => {
@@ -108,32 +105,39 @@ export function ContactForm() {
     }
   }
 
-  const handleSubmit = async () => {
-  const formData = new FormData()
+  const validateSection = () => {
+    const newErrors: Record<string, boolean> = {}
 
+    section.fields.forEach((field) => {
+      if (!field.required) return
+      const value = form[field.id]
+      if (
+        value === undefined ||
+        value === "" ||
+        (Array.isArray(value) && value.length === 0) ||
+        (value instanceof File && value.size === 0)
+      ) {
+        newErrors[field.id] = true
+      }
+    })
+
+    if (Object.keys(newErrors).length > 0) {
+      const firstError = Object.keys(newErrors)[0]
+      document.getElementById(firstError)?.scrollIntoView({ behavior: "smooth", block: "center" })
+    }
+
+    return Object.keys(newErrors).length === 0
+  }
+
+  const handleSubmit = async () => {
+    if (!validateSection()) return
+
+    const formData = new FormData()
     Object.entries(form).forEach(([key, value]: any) => {
       if (value === undefined || value === null || value === "") return
-
-      // Send numbers as strings
-      if (key === "houseConsumption" || key === "heatingConsumption") {
-        formData.append(key, String(value))
-        return
-      }
-
-      // Send multi-select properly
-      if (Array.isArray(value)) {
-        value.forEach((v: any) => formData.append(`${key}[]`, v))
-        return
-      }
-
-      // File upload
-      if (value instanceof File) {
-        formData.append(key, value)
-        return
-      }
-
-      // Regular fields
-      formData.append(key, value)
+      if (Array.isArray(value)) value.forEach((v) => formData.append(`${key}[]`, v))
+      else if (value instanceof File) formData.append(key, value)
+      else formData.append(key, value)
     })
 
     const res = await fetch("https://api.wemasol.sdict.nl/api/leads/create/", {
@@ -163,8 +167,8 @@ export function ContactForm() {
 
       <div className="grid md:grid-cols-2 gap-6">
         {section.fields.map((field: any) => (
-          <div key={field.id} className="space-y-2">
-            <Label>{field.label}</Label>
+          <div key={field.id} className="space-y-2" id={field.id}>
+            <Label>{field.label}{field.required && " *"}</Label>
 
             {field.type === "text" && (
               <Input
@@ -195,9 +199,7 @@ export function ContactForm() {
                 </SelectTrigger>
                 <SelectContent>
                   {field.options?.map((opt: string) => (
-                    <SelectItem key={opt} value={opt}>
-                      {opt}
-                    </SelectItem>
+                    <SelectItem key={opt} value={opt}>{opt}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -232,12 +234,8 @@ export function ContactForm() {
 
       <div className="flex justify-between pt-8">
         {step > 0 ? (
-          <Button variant="outline" onClick={() => setStep(step - 1)}>
-            Back
-          </Button>
-        ) : (
-          <div />
-        )}
+          <Button variant="outline" onClick={() => setStep(step - 1)}>Back</Button>
+        ) : <div />}
 
         {!isLast ? (
           <Button onClick={() => setStep(step + 1)}>Next</Button>
