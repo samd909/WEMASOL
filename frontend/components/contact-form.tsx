@@ -15,14 +15,22 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-const SECTIONS = [
+type Field = {
+  id: string
+  label: string
+  type: "text" | "number" | "textarea" | "select" | "multi" | "file"
+  required?: boolean
+  options?: string[]
+}
+
+const SECTIONS: { title: string; fields: Field[] }[] = [
   {
     title: "Kontaktinformationen",
     fields: [
       { id: "salutation", label: "Anrede", type: "select", options: ["Herr", "Frau"], required: true },
       { id: "firstName", label: "Vorname", type: "text", required: true },
       { id: "lastName", label: "Nachname", type: "text", required: true },
-      { id: "company", label: "Firmenname", type: "text", required: false },
+      { id: "company", label: "Firmenname", type: "text" },
       { id: "phone", label: "Telefonnummer", type: "text", required: true },
       { id: "email", label: "E-Mail", type: "text", required: true },
     ],
@@ -40,8 +48,8 @@ const SECTIONS = [
     title: "Energieverbrauch",
     fields: [
       { id: "houseConsumption", label: "Stromverbrauch Haushalt (kWh)", type: "number", required: true },
-      { id: "heatingInfo", label: "Zusätzliche Informationen zur Heizung", type: "textarea", required: false },
-      { id: "objectDetails", label: "Details zum Objekt", type: "textarea", required: false },
+      { id: "heatingInfo", label: "Zusätzliche Informationen zur Heizung", type: "textarea" },
+      { id: "objectDetails", label: "Details zum Objekt", type: "textarea" },
     ],
   },
   {
@@ -82,7 +90,7 @@ const SECTIONS = [
     title: "Bilder hochladen",
     fields: [
       { id: "required_file", label: "Foto Dachfläche", type: "file", required: true },
-      { id: "optional_file", label: "Zusätzliches Foto", type: "file", required: false },
+      { id: "optional_file", label: "Zusätzliches Foto", type: "file" },
     ],
   },
 ]
@@ -90,14 +98,18 @@ const SECTIONS = [
 export function ContactForm() {
   const [step, setStep] = useState(0)
   const [form, setForm] = useState<any>({ extraOptions: [] })
+  const [errors, setErrors] = useState<Record<string, boolean>>({})
+
   const section = SECTIONS[step]
 
   const update = (id: string, value: any) => {
     setForm((prev: any) => ({ ...prev, [id]: value }))
+    setErrors((prev) => ({ ...prev, [id]: false }))
   }
 
   const toggleMulti = (id: string, option: string) => {
     const current = form[id] || []
+
     if (current.includes(option)) {
       update(id, current.filter((o: string) => o !== option))
     } else {
@@ -110,34 +122,59 @@ export function ContactForm() {
 
     section.fields.forEach((field) => {
       if (!field.required) return
+
       const value = form[field.id]
+
       if (
         value === undefined ||
         value === "" ||
-        (Array.isArray(value) && value.length === 0) ||
-        (value instanceof File && value.size === 0)
+        (Array.isArray(value) && value.length === 0)
       ) {
         newErrors[field.id] = true
       }
     })
 
+    setErrors(newErrors)
+
     if (Object.keys(newErrors).length > 0) {
       const firstError = Object.keys(newErrors)[0]
-      document.getElementById(firstError)?.scrollIntoView({ behavior: "smooth", block: "center" })
+      document.getElementById(firstError)?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      })
     }
 
     return Object.keys(newErrors).length === 0
+  }
+
+  const nextStep = () => {
+    if (!validateSection()) return
+    setStep((prev) => prev + 1)
   }
 
   const handleSubmit = async () => {
     if (!validateSection()) return
 
     const formData = new FormData()
+
     Object.entries(form).forEach(([key, value]: any) => {
-      if (value === undefined || value === null || value === "") return
-      if (Array.isArray(value)) value.forEach((v) => formData.append(`${key}[]`, v))
-      else if (value instanceof File) formData.append(key, value)
-      else formData.append(key, value)
+      if (value === undefined || value === null) return
+
+      if (Array.isArray(value)) {
+        const jsonBlob = new Blob([JSON.stringify(value)], {
+          type: "application/json",
+        })
+
+        formData.append(key, jsonBlob)
+        return
+      }
+
+      if (value instanceof File) {
+        formData.append(key, value)
+        return
+      }
+
+      formData.append(key, value)
     })
 
     const res = await fetch("https://api.wemasol.sdict.nl/api/leads/create/", {
@@ -145,9 +182,10 @@ export function ContactForm() {
       body: formData,
     })
 
+    const data = await res.json()
+
     if (!res.ok) {
-      const err = await res.json()
-      console.error("Backend error:", err)
+      console.error(data)
       alert("Error submitting form")
       return
     }
@@ -166,12 +204,15 @@ export function ContactForm() {
       </h2>
 
       <div className="grid md:grid-cols-2 gap-6">
-        {section.fields.map((field: any) => (
+        {section.fields.map((field) => (
           <div key={field.id} className="space-y-2" id={field.id}>
-            <Label>{field.label}{field.required && " *"}</Label>
+            <Label className={errors[field.id] ? "text-red-600" : ""}>
+              {field.label} {field.required && "*"}
+            </Label>
 
             {field.type === "text" && (
               <Input
+                className={errors[field.id] ? "border-red-500" : ""}
                 value={form[field.id] || ""}
                 onChange={(e) => update(field.id, e.target.value)}
               />
@@ -180,6 +221,7 @@ export function ContactForm() {
             {field.type === "number" && (
               <Input
                 type="number"
+                className={errors[field.id] ? "border-red-500" : ""}
                 value={form[field.id] || ""}
                 onChange={(e) => update(field.id, e.target.value)}
               />
@@ -187,19 +229,25 @@ export function ContactForm() {
 
             {field.type === "textarea" && (
               <Textarea
+                className={errors[field.id] ? "border-red-500" : ""}
                 value={form[field.id] || ""}
                 onChange={(e) => update(field.id, e.target.value)}
               />
             )}
 
             {field.type === "select" && (
-              <Select value={form[field.id] || ""} onValueChange={(val) => update(field.id, val)}>
-                <SelectTrigger>
+              <Select
+                value={form[field.id] || ""}
+                onValueChange={(val) => update(field.id, val)}
+              >
+                <SelectTrigger className={errors[field.id] ? "border-red-500" : ""}>
                   <SelectValue placeholder="Bitte auswählen" />
                 </SelectTrigger>
                 <SelectContent>
-                  {field.options?.map((opt: string) => (
-                    <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                  {field.options?.map((opt) => (
+                    <SelectItem key={opt} value={opt}>
+                      {opt}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -207,7 +255,7 @@ export function ContactForm() {
 
             {field.type === "multi" && (
               <div className="space-y-2">
-                {field.options?.map((opt: string) => (
+                {field.options?.map((opt) => (
                   <div key={opt} className="flex items-center gap-2">
                     <Checkbox
                       checked={form[field.id]?.includes(opt)}
@@ -222,6 +270,7 @@ export function ContactForm() {
             {field.type === "file" && (
               <Input
                 type="file"
+                className={errors[field.id] ? "border-red-500" : ""}
                 onChange={(e) => {
                   const file = e.target.files?.[0]
                   if (file) update(field.id, file)
@@ -234,11 +283,15 @@ export function ContactForm() {
 
       <div className="flex justify-between pt-8">
         {step > 0 ? (
-          <Button variant="outline" onClick={() => setStep(step - 1)}>Back</Button>
-        ) : <div />}
+          <Button variant="outline" onClick={() => setStep(step - 1)}>
+            Back
+          </Button>
+        ) : (
+          <div />
+        )}
 
         {!isLast ? (
-          <Button onClick={() => setStep(step + 1)}>Next</Button>
+          <Button onClick={nextStep}>Next</Button>
         ) : (
           <Button onClick={handleSubmit}>Submit</Button>
         )}

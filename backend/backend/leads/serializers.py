@@ -10,13 +10,14 @@ class LeadSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def to_internal_value(self, data):
+        data = data.copy()  # QueryDict → mutable copy
 
         extra = data.get("extraOptions")
 
         if isinstance(extra, str):
             try:
                 data["extraOptions"] = json.loads(extra)
-            except Exception:
+            except json.JSONDecodeError:
                 data["extraOptions"] = []
 
         return super().to_internal_value(data)
