@@ -160,12 +160,8 @@ export function ContactForm() {
     Object.entries(form).forEach(([key, value]: any) => {
       if (value === undefined || value === null) return
 
-      if (Array.isArray(value)) {
-        const jsonBlob = new Blob([JSON.stringify(value)], {
-          type: "application/json",
-        })
-
-        formData.append(key, jsonBlob)
+      if (key === "extraOptions") {
+        formData.append("extraOptions", JSON.stringify(value || []))
         return
       }
 
