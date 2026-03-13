@@ -33,7 +33,7 @@ class Lead(models.Model):
     # preferences
     priority = models.CharField(max_length=200)
 
-    extraOptions = models.JSONField(default=list, blank=True)
+    extraOptions = models.TextField(blank=True)
 
     # files
     required_file = models.FileField(upload_to="leads/")
