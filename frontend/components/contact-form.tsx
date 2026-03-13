@@ -134,7 +134,7 @@ export function ContactForm() {
     setStep((prev) => prev + 1)
   }
 
- const handleSubmit = async () => {
+  const handleSubmit = async () => {
   if (!validateSection()) return
 
   const formData = new FormData()
@@ -145,8 +145,8 @@ export function ContactForm() {
     if (value instanceof File) {
       formData.append(key, value)
     } else if (Array.isArray(value)) {
-      // THE FIX: Send the array as a JSON string
-      formData.append(key, JSON.stringify(value))
+      // Append each item separately; the backend 'getlist' will now handle this
+      value.forEach((item) => formData.append(key, item))
     } else {
       formData.append(key, String(value))
     }
@@ -159,7 +159,6 @@ export function ContactForm() {
     })
 
     const data = await res.json()
-
     if (!res.ok) {
       console.error("Server Error:", data)
       alert("Error: " + JSON.stringify(data))
