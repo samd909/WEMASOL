@@ -109,7 +109,6 @@ export function ContactForm() {
 
   const toggleMulti = (id: string, option: string) => {
     const current = form[id] || []
-
     if (current.includes(option)) {
       update(id, current.filter((o: string) => o !== option))
     } else {
@@ -119,16 +118,13 @@ export function ContactForm() {
 
   const validateSection = () => {
     const newErrors: Record<string, boolean> = {}
-
     section.fields.forEach((field) => {
       if (!field.required) return
       const value = form[field.id]
-
       if (value === undefined || value === "" || (Array.isArray(value) && value.length === 0)) {
         newErrors[field.id] = true
       }
     })
-
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
@@ -143,21 +139,25 @@ export function ContactForm() {
 
     const formData = new FormData()
 
+    // 1. Process all fields EXCEPT extraOptions
     Object.entries(form).forEach(([key, value]: any) => {
-      if (value === undefined || value === null) return
-
-      if (key === "extraOptions") {
-        value.forEach((v: string) => formData.append("extraOptions", v))
-        return
-      }
+      if (key === "extraOptions") return // Skip the array version
+      if (value === undefined || value === null || value === "") return
 
       if (value instanceof File) {
         formData.append(key, value)
-        return
+      } else {
+        formData.append(key, String(value))
       }
-
-      formData.append(key, value)
     })
+
+    // 2. Explicitly join the array into a single comma-separated string
+    const extraOptionsString = Array.isArray(form.extraOptions) 
+      ? form.extraOptions.join(", ") 
+      : ""
+    
+    // 3. Append the string version only
+    formData.append("extraOptions", extraOptionsString)
 
     try {
       const res = await fetch("https://api.wemasol.sdict.nl/api/leads/create/", {
@@ -168,17 +168,16 @@ export function ContactForm() {
       const data = await res.json()
 
       if (!res.ok) {
-        console.error(data)
-        alert("Error submitting form")
+        console.error("Server Error:", data)
+        alert("Error: " + JSON.stringify(data))
         return
       }
 
       alert("Form submitted successfully!")
       setForm({ extraOptions: [] })
       setStep(0)
-
     } catch (err) {
-      console.error(err)
+      console.error("Network Error:", err)
       alert("Network error")
     }
   }
@@ -243,8 +242,8 @@ export function ContactForm() {
                 {field.options?.map((opt) => (
                   <div key={opt} className="flex items-center gap-2">
                     <Checkbox
-                      checked={form[field.id]?.includes(opt)}
-                      onCheckedChange={() => toggleMulti(field.id, opt)}
+                      checked={form.extraOptions.includes(opt)}
+                      onCheckedChange={() => toggleMulti("extraOptions", opt)}
                     />
                     <Label>{opt}</Label>
                   </div>
