@@ -122,28 +122,14 @@ export function ContactForm() {
 
     section.fields.forEach((field) => {
       if (!field.required) return
-
       const value = form[field.id]
 
-      if (
-        value === undefined ||
-        value === "" ||
-        (Array.isArray(value) && value.length === 0)
-      ) {
+      if (value === undefined || value === "" || (Array.isArray(value) && value.length === 0)) {
         newErrors[field.id] = true
       }
     })
 
     setErrors(newErrors)
-
-    if (Object.keys(newErrors).length > 0) {
-      const firstError = Object.keys(newErrors)[0]
-      document.getElementById(firstError)?.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      })
-    }
-
     return Object.keys(newErrors).length === 0
   }
 
@@ -161,7 +147,7 @@ export function ContactForm() {
       if (value === undefined || value === null) return
 
       if (key === "extraOptions") {
-        formData.append("extraOptions", JSON.stringify(value || []))
+        value.forEach((v: string) => formData.append("extraOptions", v))
         return
       }
 
@@ -173,22 +159,28 @@ export function ContactForm() {
       formData.append(key, value)
     })
 
-    const res = await fetch("https://api.wemasol.sdict.nl/api/leads/create/", {
-      method: "POST",
-      body: formData,
-    })
+    try {
+      const res = await fetch("https://api.wemasol.sdict.nl/api/leads/create/", {
+        method: "POST",
+        body: formData,
+      })
 
-    const data = await res.json()
+      const data = await res.json()
 
-    if (!res.ok) {
-      console.error(data)
-      alert("Error submitting form")
-      return
+      if (!res.ok) {
+        console.error(data)
+        alert("Error submitting form")
+        return
+      }
+
+      alert("Form submitted successfully!")
+      setForm({ extraOptions: [] })
+      setStep(0)
+
+    } catch (err) {
+      console.error(err)
+      alert("Network error")
     }
-
-    alert("Form submitted successfully!")
-    setForm({ extraOptions: [] })
-    setStep(0)
   }
 
   const isLast = step === SECTIONS.length - 1
@@ -201,14 +193,13 @@ export function ContactForm() {
 
       <div className="grid md:grid-cols-2 gap-6">
         {section.fields.map((field) => (
-          <div key={field.id} className="space-y-2" id={field.id}>
+          <div key={field.id} className="space-y-2">
             <Label className={errors[field.id] ? "text-red-600" : ""}>
               {field.label} {field.required && "*"}
             </Label>
 
             {field.type === "text" && (
               <Input
-                className={errors[field.id] ? "border-red-500" : ""}
                 value={form[field.id] || ""}
                 onChange={(e) => update(field.id, e.target.value)}
               />
@@ -217,7 +208,6 @@ export function ContactForm() {
             {field.type === "number" && (
               <Input
                 type="number"
-                className={errors[field.id] ? "border-red-500" : ""}
                 value={form[field.id] || ""}
                 onChange={(e) => update(field.id, e.target.value)}
               />
@@ -225,7 +215,6 @@ export function ContactForm() {
 
             {field.type === "textarea" && (
               <Textarea
-                className={errors[field.id] ? "border-red-500" : ""}
                 value={form[field.id] || ""}
                 onChange={(e) => update(field.id, e.target.value)}
               />
@@ -236,7 +225,7 @@ export function ContactForm() {
                 value={form[field.id] || ""}
                 onValueChange={(val) => update(field.id, val)}
               >
-                <SelectTrigger className={errors[field.id] ? "border-red-500" : ""}>
+                <SelectTrigger>
                   <SelectValue placeholder="Bitte auswählen" />
                 </SelectTrigger>
                 <SelectContent>
@@ -266,7 +255,6 @@ export function ContactForm() {
             {field.type === "file" && (
               <Input
                 type="file"
-                className={errors[field.id] ? "border-red-500" : ""}
                 onChange={(e) => {
                   const file = e.target.files?.[0]
                   if (file) update(field.id, file)
