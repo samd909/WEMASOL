@@ -134,53 +134,46 @@ export function ContactForm() {
     setStep((prev) => prev + 1)
   }
 
-  const handleSubmit = async () => {
-    if (!validateSection()) return
+ const handleSubmit = async () => {
+  if (!validateSection()) return
 
-    const formData = new FormData()
+  const formData = new FormData()
 
-    // 1. Process all fields EXCEPT extraOptions
-    Object.entries(form).forEach(([key, value]: any) => {
-      if (key === "extraOptions") return // Skip the array version
-      if (value === undefined || value === null || value === "") return
+  Object.entries(form).forEach(([key, value]: any) => {
+    if (value === undefined || value === null || value === "") return
 
-      if (value instanceof File) {
-        formData.append(key, value)
-      } else {
-        formData.append(key, String(value))
-      }
+    if (value instanceof File) {
+      formData.append(key, value)
+    } else if (Array.isArray(value)) {
+      // THE FIX: Send the array as a JSON string
+      formData.append(key, JSON.stringify(value))
+    } else {
+      formData.append(key, String(value))
+    }
+  })
+
+  try {
+    const res = await fetch("https://api.wemasol.sdict.nl/api/leads/create/", {
+      method: "POST",
+      body: formData,
     })
 
-    // 2. Explicitly join the array into a single comma-separated string
-    const extraOptionsString = Array.isArray(form.extraOptions) 
-      ? form.extraOptions.join(", ") 
-      : ""
-    
-    // 3. Append the string version only
-    formData.append("extraOptions", extraOptionsString)
+    const data = await res.json()
 
-    try {
-      const res = await fetch("https://api.wemasol.sdict.nl/api/leads/create/", {
-        method: "POST",
-        body: formData,
-      })
-
-      const data = await res.json()
-
-      if (!res.ok) {
-        console.error("Server Error:", data)
-        alert("Error: " + JSON.stringify(data))
-        return
-      }
-
-      alert("Form submitted successfully!")
-      setForm({ extraOptions: [] })
-      setStep(0)
-    } catch (err) {
-      console.error("Network Error:", err)
-      alert("Network error")
+    if (!res.ok) {
+      console.error("Server Error:", data)
+      alert("Error: " + JSON.stringify(data))
+      return
     }
+
+    alert("Form submitted successfully!")
+    setForm({ extraOptions: [] })
+    setStep(0)
+  } catch (err) {
+    console.error("Network Error:", err)
+    alert("Network error")
   }
+}
 
   const isLast = step === SECTIONS.length - 1
 
