@@ -89,7 +89,7 @@ const SECTIONS: { title: string; fields: Field[] }[] = [
   {
     title: "Bilder hochladen",
     fields: [
-      { id: "required_file", label: "Foto Dachfläche", type: "file", required: true },
+      { id: "meterbox_photo", label: "Fotos vom Zählerkasten", type: "file" },
       { id: "optional_file", label: "Zusätzliches Foto", type: "file" },
     ],
   },

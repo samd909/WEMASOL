@@ -35,7 +35,7 @@ class Lead(models.Model):
 
     extraOptions = models.TextField(blank=True, default="")    # files
     
-    required_file = models.FileField(upload_to="leads/")
+    required_file = models.FileField(upload_to="leads/", null=True, blank=True)
     optional_file = models.FileField(upload_to="leads/", null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
